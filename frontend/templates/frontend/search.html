@@ -1,0 +1,252 @@
+{% extends 'frontend/frontend_base.html' %}
+{% load static %}
+{% block title %}
+  Buscar
+{% endblock %}
+
+{% block content %}
+  <main>
+    <section class="bg-primary">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-control-bg-light bg-mode border p-4 rounded-3">
+              <div class="tab-content mt-0" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="cab-one-way" role="tabpanel"
+                     aria-labelledby="cab-one-way-tab">
+                  <form class="row g-4 align-items-center">
+                    <div class="col-xl-10">
+                      <div class="row g-4">
+                        <div class="col-md-6 col-xl-4">
+                          <div class="form-size-lg">
+                            <label class="form-label">Ciudad</label>
+                            <select class="form-select js-choice" data-search-enabled="true"
+                                    aria-label=".form-select-sm">
+                              <option value="">Selecciona una ciudad</option>
+                              <option selected>Huamanga, Ayacucho</option>
+                              <option>Huanta, Ayacucho</option>
+                              <option>Huancayo, Junin</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4">
+                          <div class="form-size-lg">
+                            <label class="form-label">Deporte</label>
+                            <select class="form-select js-choice" data-search-enabled="true"
+                                    aria-label=".form-select-sm">
+                              <option value="">Selecciona un deporte</option>
+                              <option>Futbol 5</option>
+                              <option>Volley</option>
+                              <option>Fubtol 8</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-2">
+                          <label class="form-label">Fecha</label>
+                          <input type="text" class="form-control form-control-lg flatpickr" value="20 Nov"
+                                 placeholder="Select date">
+                        </div>
+
+                        <div class="col-md-6 col-xl-2">
+                          <label class="form-label">Hora</label>
+                          <input type="text" class="form-control form-control-lg flatpickr" value="2:50 PM"
+                                 data-enableTime="true" data-noCalendar="true" placeholder="Select time">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xl-2 d-grid mt-xl-auto">
+                      <a class="btn btn-lg btn-primary mb-0" href="#">Buscar <i class="bi bi-search"></i></a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="pt-6">
+      <div class="container position-relative">
+        <div class="row">
+          <div class="col-12">
+            <div class="d-sm-flex justify-content-sm-between align-items-center">
+
+              <div class="mb-2 mb-sm-0">
+                <h1 class="fs-3 mb-2">5 lugares disponibles</h1>
+              </div>
+
+              <button class="btn btn-primary-soft btn-primary-check d-xl-none mb-0" type="button"
+                      data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+                <i class="fa-solid fa-sliders-h me-1"></i> Mostrar filtros
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <section class="pt-0">
+      <div class="container" data-sticky-container>
+        <div class="row">
+          <aside class="col-xl-4 col-xxl-3">
+            <div data-sticky data-margin-top="80" data-sticky-for="1199">
+              <div class="offcanvas-xl offcanvas-end" tabindex="-1" id="offcanvasSidebar"
+                   aria-labelledby="offcanvasSidebarLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Filtros avanzados</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar"
+                          aria-label="Close"></button>
+                </div>
+
+                <div class="offcanvas-body flex-column p-3 p-xl-0">
+                  <form class="rounded-3 shadow">
+                    <div class="card card-body rounded-0 rounded-top p-4">
+                      <h6 class="mb-2">Capacidad de jugadores</h6>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="popolarType1">
+                        <label class="form-check-label" for="popolarType1">4 jugadores</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="popolarType2">
+                        <label class="form-check-label" for="popolarType2">6 jugadores</label>
+                      </div>
+                    </div>
+                    <hr class="my-0">
+                    <div class="card card-body rounded-0 p-4">
+                      <h6 class="mb-2">Precio</h6>
+                      <div class="position-relative">
+                        <div class="noui-wrapper mb-2">
+                          <div class="d-flex justify-content-between">
+                            <input type="text" class="text-body input-with-range-min">
+                            <input type="text" class="text-body input-with-range-max">
+                          </div>
+                          <div class="noui-slider-range mt-2" data-range-min='10' data-range-max='100'
+                               data-range-selected-min='10' data-range-selected-max='100'></div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr class="my-0">
+                    <div class="card card-body rounded-0 rounded-bottom p-4">
+
+                      <h6 class="mb-2">Servicios</h6>
+
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="lauoverType1">
+                        <label class="form-check-label" for="lauoverType1">Cochera</label>
+                      </div>
+
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="lauoverType2">
+                        <label class="form-check-label" for="lauoverType2">Servicios higíenicos</label>
+                      </div>
+
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="lauoverType3">
+                        <label class="form-check-label" for="lauoverType3">Bar y cervezas</label>
+                      </div>
+
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="lauoverType9">
+                        <label class="form-check-label" for="lauoverType9">Innova Crysta or similar</label>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="d-flex justify-content-between p-2 p-xl-0 mt-xl-4">
+                  <button class="btn btn-link p-0 mb-0">Limpiar</button>
+                  <button class="btn btn-primary mb-0">Aplicar filtros</button>
+                </div>
+              </div>
+            </div>
+          </aside>
+          <div class="col-xl-8 col-xxl-9">
+            <div class="vstack gap-4">
+              <div class="card border p-4">
+                <div class="card-body p-0">
+                  <div class="row g-2 g-sm-4 mb-4">
+                    <div class="col-md-4 col-xl-3">
+                      <div class="bg-light rounded-3 px-4 py-5">
+                        <img src="{% static 'dashboard/images/category/grass/cancha.webp' %}" alt="">
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-6">
+                      <h4 class="card-title mb-2"><a href="{% url 'detail' %}" class="stretched-link">Grass la Revancha</a>
+                      </h4>
+                      <ul class="nav nav-divider h6 fw-normal mb-2">
+                        <li class="nav-item ">8pm</li>
+                        <li class="nav-item">9pm</li>
+                        <li class="nav-item">10pm</li>
+                      </ul>
+                      <ul class="list-inline mb-0">
+                        <li class="list-inline-item h6 fw-normal me-1 mb-0">4.5</li>
+                        <li class="list-inline-item me-0"><i class="fa-solid fa-star text-warning"></i></li>
+                        <li class="list-inline-item me-0"><i class="fa-solid fa-star text-warning"></i></li>
+                        <li class="list-inline-item me-0"><i class="fa-solid fa-star text-warning"></i></li>
+                        <li class="list-inline-item me-0"><i class="fa-solid fa-star text-warning"></i></li>
+                        <li class="list-inline-item"><i class="fa-solid fa-star-half-alt text-warning"></i></li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-3 text-sm-end">
+                      <p class="text-danger mb-0">Con descuento</p>
+                      <ul class="list-inline mb-1">
+                        <li class="list-inline-item text-decoration-line-through me-1">S/ 70</li>
+                        <li class="list-inline-item h5 mb-0">S/ 50</li>
+                      </ul>
+                      <a href="#" class="btn btn-dark mb-0">Reservar</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer border-top p-0 pt-3">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <ul class="list-group list-group-borderless mb-0">
+                        <li class="list-group-item d-flex pb-0 mb-0">
+                          <span class="h6 fw-normal mb-0"><i class="bi bi-check-circle me-2"></i>A 800 mts</span>
+                        </li>
+                        <li class="list-group-item d-flex pb-0 mb-0">
+                          <span class="h6 fw-normal mb-0"><i class="bi bi-check-circle me-2"></i>Con cochera</span>
+                        </li>
+                        <li class="list-group-item d-flex pb-0 mb-0">
+                          <span class="h6 fw-normal mb-0"><i
+                              class="bi bi-check-circle me-2"></i>Servicios higiénicos</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-md-6">
+                      <ul class="list-group list-group-borderless mb-0">
+                        <li class="list-group-item d-flex h6 fw-light text-success pb-0 mb-0">
+                          Tolerancia de 10 minutos
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <nav class="d-flex justify-content-center" aria-label="navigation">
+                <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                  <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i
+                      class="fa-solid fa-angle-left"></i></a></li>
+                  <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
+                  <li class="page-item mb-0"><a class="page-link" href="#">6</a></li>
+                  <li class="page-item mb-0"><a class="page-link" href="#"><i class="fa-solid fa-angle-right"></i></a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+    </section>
+    <!-- =======================
+    Cab list END -->
+
+  </main>
+{% endblock %}

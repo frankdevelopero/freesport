@@ -1,0 +1,52 @@
+{% load static %}
+<nav class="navbar sidebar navbar-expand-xl navbar-light">
+  <!-- Navbar brand for xl START -->
+  <div class="d-flex align-items-center">
+    <a class="navbar-brand" href="{% url 'dashboard' %}">
+      <img class="light-mode-item navbar-brand-item" src="{% static 'dashboard/images/logo.svg' %}" alt="logo">
+      <img class="dark-mode-item navbar-brand-item" src="{% static 'dashboard/images/logo-light.svg' %}" alt="logo">
+    </a>
+  </div>
+  <!-- Navbar brand for xl END -->
+
+  <div class="offcanvas offcanvas-start flex-row custom-scrollbar h-100" data-bs-backdrop="true" tabindex="-1"
+       id="offcanvasSidebar">
+    <div class="offcanvas-body sidebar-content d-flex flex-column pt-4">
+
+      <ul class="navbar-nav flex-column" id="navbar-sidebar">
+        <!-- Menu item -->
+        <li class="nav-item"><a href="{% url 'dashboard' %}"
+                                class="nav-link {% if 'inicio' in request.path %} active{% endif %}">Dashboard</a></li>
+
+        <!-- Title -->
+        <li class="nav-item ms-2 my-2">Gestiona</li>
+
+        <!-- Menu item -->
+        <li class="nav-item"><a class="nav-link {% if 'empresas' in request.path %} active{% endif %}"
+                                href="{% url 'dashboard_agents' %}">Empresas</a></li>
+
+        <!-- Menu item -->
+        <li class="nav-item"><a class="nav-link {% if 'usuarios' in request.path %} active{% endif %}"
+                                href="{% url 'dashboard_users' %}">Usuarios</a></li>
+
+        <!-- Menu item -->
+        <li class="nav-item"><a class="nav-link {% if 'reservas' in request.path %} active{% endif %}"
+                                href="{% url 'dashboard_bookings' %}">Reservas</a></li>
+
+        <!-- Title -->
+        <li class="nav-item ms-2 my-2">Configura</li>
+
+        <li class="nav-item"><a class="nav-link" href="docs/index.html">Ciudades</a></li>
+
+        <li class="nav-item"><a class="nav-link" href="docs/changelog.html">Deportes</a></li>
+      </ul>
+      <div class="d-flex align-items-center justify-content-between text-primary-hover mt-auto p-3">
+        <a class="h6 fw-light mb-0 text-body" href="{% url 'logout' %}" data-bs-toggle="tooltip" data-bs-placement="top"
+           aria-label="Salir">
+          <i class="fa-solid fa-arrow-right-from-bracket me-3"></i> Cerrar sesión
+        </a>
+      </div>
+
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,115 @@
+{% extends 'agent/agent_base.html' %}
+
+{% block title %}
+  Inicio
+{% endblock %}
+
+
+{% block content %}
+  <section class="pt-0">
+    <div class="container vstack gap-4">
+      <!-- Title START -->
+      <div class="row">
+        <div class="col-12">
+          <h1 class="fs-4 mb-0"><i class="bi bi-bookmark-heart fa-fw me-1"></i>Mis reservas</h1>
+        </div>
+      </div>
+      <!-- Title END -->
+
+      <!-- Booking table START -->
+      <div class="row">
+        <div class="col-12">
+          <div class="card border">
+            <!-- Card header START -->
+            <div class="card-header border-bottom">
+              <h5 class="card-header-title">Reservas<span
+                  class="badge bg-primary bg-opacity-10 text-primary ms-2">20</span>
+              </h5>
+            </div>
+            <!-- Card header END -->
+
+            <!-- Card body START -->
+            <div class="card-body">
+              <!-- Search and select START -->
+              <div class="row g-3 align-items-center justify-content-between mb-3">
+                <!-- Search -->
+                <div class="col-md-8">
+                  <form class="rounded position-relative">
+                    <input class="form-control pe-5" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn border-0 px-3 py-0 position-absolute top-50 end-0 translate-middle-y"
+                            type="submit"><i class="fas fa-search fs-6"></i></button>
+                  </form>
+                </div>
+
+                <!-- Select option -->
+                <div class="col-md-3">
+                  <!-- Short by filter -->
+                  <form>
+                    <select class="form-select js-choice" aria-label=".form-select-sm">
+                      <option value="">Por cancha</option>
+                      <option>Futbol 5</option>
+                      <option>Volley 1</option>
+                      <option>Futbol 6</option>
+                    </select>
+                  </form>
+                </div>
+              </div>
+              <div class="table-responsive border-0">
+                <table class="table align-middle p-4 mb-0 table-hover table-shrink">
+                  <thead class="table-light">
+                  <tr>
+                    <th scope="col" class="border-0 rounded-start">#</th>
+                    <th scope="col" class="border-0">Cliente</th>
+                    <th scope="col" class="border-0">Cancha</th>
+                    <th scope="col" class="border-0">Fecha</th>
+                    <th scope="col" class="border-0">Estado</th>
+                    <th scope="col" class="border-0">Pago</th>
+                    <th scope="col" class="border-0 rounded-end">Acciones</th>
+                  </tr>
+                  </thead>
+
+                  <tbody class="border-top-0">
+
+                  <tr>
+                    <td><h6 class="mb-0">BK004</h6></td>
+                    <td><h6 class="mb-0"><a href="#">Frank Lopez</a></h6></td>
+                    <td> Cancha 1 - futbol</td>
+                    <td><h6 class="mb-0 fw-light">01/02/2023 | 7pm-9pm</h6></td>
+                    <td>
+                      <div class="badge text-bg-success">Confirmado</div>
+                    </td>
+                    <td>
+                      <div class="badge bg-success bg-opacity-10 text-success">Pagado</div>
+                    </td>
+                    <td><a href="#" class="btn btn-sm btn-light mb-0">Detalles</a></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card-footer pt-0">
+              <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+                <p class="mb-sm-0 text-center text-sm-start">Mostrando 1 al 8 de 20 registros</p>
+                <nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
+                  <ul class="pagination pagination-sm pagination-primary-soft mb-0">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#" tabindex="-1">Ante</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item "><a class="page-link" href="#">2</a></li>
+                    <li class="page-item disabled"><a class="page-link" href="#">..</a></li>
+                    <li class="page-item"><a class="page-link" href="#">15</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">Sigt</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

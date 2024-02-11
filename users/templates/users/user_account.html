@@ -1,0 +1,160 @@
+{% extends 'users/user_base.html' %}
+{% load static %}
+{% block title %}
+  Mi cuenta
+{% endblock %}
+
+
+{% block content %}
+
+  <section class="pt-3">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-4 col-xl-3">
+          <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasSidebar">
+            <div class="offcanvas-header justify-content-end pb-2">
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar"
+                      aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body p-3 p-lg-0">
+              <div class="card bg-light w-100">
+
+                <div class="position-absolute top-0 end-0 p-3">
+                  <a href="#" class="text-primary-hover" data-bs-toggle="tooltip" data-bs-title="Edit profile">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                </div>
+
+                <div class="card-body p-3">
+                  <div class="text-center mb-3">
+                    <!-- Avatar -->
+                    <div class="avatar avatar-xl mb-2">
+                      <img class="avatar-img rounded-circle border border-2 border-white"
+                           src="{% static 'dashboard/images/avatar/01.jpg' %}" alt="">
+                    </div>
+                    <h6 class="mb-0">{{ request.user.first_name }} {{ request.user.last_name }}</h6>
+                    <a href="#" class="text-reset text-primary-hover small">{{ request.user.email }}</a>
+                    <hr>
+                  </div>
+
+                  {% include 'users/user_account_menu.html' %}
+                </div>
+                <!-- Card body END -->
+              </div>
+            </div>
+          </div>
+          <!-- Responsive offcanvas body END -->
+        </div>
+        <!-- Sidebar END -->
+
+        <!-- Main content START -->
+        <div class="col-lg-8 col-xl-9">
+
+          <!-- Offcanvas menu button -->
+          <div class="d-grid mb-0 d-lg-none w-100">
+            <button class="btn btn-primary mb-4" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+              <i class="fas fa-sliders-h"></i> Menu cuenta
+            </button>
+          </div>
+
+          <div class="vstack gap-4">
+
+            <!-- Personal info START -->
+            <div class="card border">
+              <!-- Card header -->
+              <div class="card-header border-bottom">
+                <h4 class="card-header-title">Mis datos personales</h4>
+              </div>
+
+              <div class="card-body">
+                <!-- Form START -->
+                <form class="row g-3">
+                  <!-- Profile photo -->
+                  <div class="col-12">
+                    <label class="form-label">Sube una foto<span class="text-danger">*</span></label>
+                    <div class="d-flex align-items-center">
+                      <label class="position-relative me-4" for="uploadfile-1" title="Replace this pic">
+                        <!-- Avatar place holder -->
+                        <span class="avatar avatar-xl">
+												<img id="uploadfile-1-preview"
+                             class="avatar-img rounded-circle border border-white border-3 shadow"
+                             src="{% static 'dashboard/images/avatar/01.jpg' %}" alt="">
+											</span>
+                      </label>
+                      <!-- Upload button -->
+                      <label class="btn btn-sm btn-primary-soft mb-0" for="uploadfile-1">Subir</label>
+                      <input id="uploadfile-1" class="form-control d-none" type="file">
+                    </div>
+                  </div>
+
+                  <!-- Name -->
+                  <div class="col-md-6">
+                    <label class="form-label">Nombres <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" value="Frank Lopez Coras"
+                           placeholder="Ingresa tus nombres completos">
+                  </div>
+
+                  <!-- Email -->
+                  <div class="col-md-6">
+                    <label class="form-label">Correo electrónico<span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" value="frank.lopezcoras@gmail.com" placeholder="Ingresa tu correo electrónico">
+                  </div>
+
+                  <!-- Mobile -->
+                  <div class="col-md-6">
+                    <label class="form-label">Número de celular<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" value="987 456 987" placeholder="Ingresa tu número de celular">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Fecha de nacimiento<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control flatpickr" value="10/01/1997"
+                           placeholder="Enter date of birth" data-date-format="d M Y">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Género<span class="text-danger">*</span></label>
+                    <div class="d-flex gap-4">
+                      <div class="form-check radio-bg-light">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                               checked="">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Masculino
+                        </label>
+                      </div>
+                      <div class="form-check radio-bg-light">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          Femenino
+                        </label>
+                      </div>
+                      <div class="form-check radio-bg-light">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                        <label class="form-check-label" for="flexRadioDefault3">
+                          Otros
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">Dirección</label>
+                    <textarea class="form-control" rows="3" spellcheck="false">Ingresa tu dirección</textarea>
+                  </div>
+
+                  <div class="col-12 text-end">
+                    <a href="#" class="btn btn-primary mb-0">Guardar datos</a>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+{% endblock %}

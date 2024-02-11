@@ -1,0 +1,101 @@
+{% extends 'frontend/frontend_base.html' %}
+{% load static %}
+{% block title %}
+  Reserva confirmada
+{% endblock %}
+
+{% block content %}
+
+  <main>
+
+    <!-- =======================
+    Main content START -->
+    <section class="pt-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10 col-xl-8 mx-auto">
+
+            <div class="card shadow">
+              <!-- Image -->
+              <img src="{% static 'dashboard/images/gallery/fut9.jpg' %}" class="rounded-top" alt="">
+
+              <!-- Card body -->
+              <div class="card-body text-center p-4">
+                <!-- Title -->
+                <h1 class="card-title fs-3">🎊 ¡ Felicitaciones ! 🎊</h1>
+                <p class="lead mb-3">Su reserva ha sido confirmada</p>
+
+                <!-- Second title -->
+                <h5 class="text-primary mb-4">Grass Sintético La Revancha</h5>
+
+                <!-- List -->
+                <div class="row justify-content-between text-start mb-4">
+                  <div class="col-lg-5">
+                    <ul class="list-group list-group-borderless">
+                      <li class="list-group-item d-sm-flex justify-content-between align-items-center">
+                        <span class="mb-0"><i class="bi bi-vr fa-fw me-2"></i>Reserva ID:</span>
+                        <span class="h6 fw-normal mb-0">BK005</span>
+                      </li>
+                      <li class="list-group-item d-sm-flex justify-content-between align-items-center">
+                        <span class="mb-0"><i class="bi bi-person fa-fw me-2"></i>Reservado por:</span>
+                        <span class="h6 fw-normal mb-0">Frank Lopez</span>
+                      </li>
+                      <li class="list-group-item d-sm-flex justify-content-between align-items-center">
+                        <span class="mb-0"><i class="bi bi-wallet2 fa-fw me-2"></i>Método de pago:</span>
+                        <span class="h6 fw-normal mb-0">Yape</span>
+                      </li>
+                      <li class="list-group-item d-sm-flex justify-content-between align-items-center">
+                        <span class="mb-0"><i class="bi bi-currency-dollar fa-fw me-2"></i>Total pagado:</span>
+                        <span class="h6 fw-normal mb-0">S/ 70.00</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="col-lg-5">
+                    <ul class="list-group list-group-borderless">
+                      <li class="list-group-item d-sm-flex justify-content-between align-items-center">
+                        <span class="mb-0"><i class="bi bi-calendar fa-fw me-2"></i>Fecha:</span>
+                        <span class="h6 fw-normal mb-0">05/01/2023</span>
+                      </li>
+                      <li class="list-group-item d-sm-flex justify-content-between align-items-center">
+                        <span class="mb-0"><i class="bi bi-calendar fa-fw me-2"></i>Hora:</span>
+                        <span class="h6 fw-normal mb-0">5pm hasta 7pm</span>
+                      </li>
+                      <li class="list-group-item d-sm-flex justify-content-between align-items-center">
+                        <span class="mb-0"><i class="bi bi-people fa-fw me-2"></i>Cancha:</span>
+                        <span class="h6 fw-normal mb-0">Cancha 01 futbol</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="d-sm-flex justify-content-sm-end d-grid">
+                  <div class="dropdown me-sm-2 mb-2 mb-sm-0">
+                    <a href="#" class="btn btn-light mb-0 w-100" role="button" id="dropdownShare"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-share me-2"></i>Compartir
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded"
+                        aria-labelledby="dropdownShare">
+                      <li><a class="dropdown-item" href="#"><i class="fab fa-whatsapp-square me-2"></i>Whatsapp</a></li>
+                      <li><a class="dropdown-item" href="#"><i class="fab fa-twitter-square me-2"></i>Twitter</a></li>
+                      <li><a class="dropdown-item" href="#"><i class="fab fa-facebook-square me-2"></i>Facebook</a></li>
+                      <li><a class="dropdown-item" href="#"><i class="fab fa-linkedin me-2"></i>LinkedIn</a></li>
+                      <li><a class="dropdown-item" href="#"><i class="fas fa-copy me-2"></i>Copiar Link</a></li>
+                    </ul>
+                  </div>
+                  <a href="#" class="btn btn-primary mb-0"><i class="bi bi-file-pdf me-2"></i>Descargar PDF</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- =======================
+    Main content START -->
+
+  </main>
+
+{% endblock %}

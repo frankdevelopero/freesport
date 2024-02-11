@@ -1,0 +1,159 @@
+{% extends 'dashboard/admin_base.html' %}
+{% load static %}
+
+{% block title %}
+  Agregar usuario
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'dashboard/vendor/dropzone/css/dropzone.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'dashboard/vendor/choices/css/choices.min.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="page-content-wrapper p-xxl-3" id="vue_users">
+
+    <div class="container">
+      <div class="vstack gap-4">
+        <h4 class="mb-0">Agrega nuevo usuario</h4>
+        <form class="mt-4 text-start needs-validation" novalidate>
+          {% csrf_token %}
+          <div class="card shadow">
+            <div class="card-header border-bottom">
+              <h5 class="mb-0">Datos del usuario</h5>
+            </div>
+
+            <div class="card-body">
+              <div class="row g-4">
+                <div class="col-12">
+                  <label class="form-label">Tipo de usuario</label>
+                  <select class="form-select js-choice" v-model="role" required>
+                    <option value="1">Cliente</option>
+                    <option value="2" selected>Vendedor</option>
+                    <option value="3">Administrador</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Selecciona el tipo de usuario
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <label class="form-label">Nombres</label>
+                  <input class="form-control" type="text" placeholder="Ingresa nombres completos" v-model="first_name"
+                         required>
+                  <div class="invalid-feedback">
+                    Ingresa nombres completos
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <label class="form-label">Apellidos</label>
+                  <input class="form-control" type="text" placeholder="Ingresa apellidos completos" v-model="last_name"
+                         required>
+                  <div class="invalid-feedback">
+                    Ingresa apellidos completos
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <label class="form-label">Códifo Pais</label>
+                  <select class="form-select js-choice" v-model="phone_code" required>
+                    <option value="+51" selected>+51 Peru</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Selecciona código pais
+                  </div>
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Número de celular</label>
+                  <input class="form-control" type="number" placeholder="Ingresa número de celular"
+                         v-model="phone_number" required>
+                  <div class="invalid-feedback">
+                    Ingresa número de celular
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <label class="form-label">Correo electrónico</label>
+                  <input class="form-control" type="email" placeholder="Ingresa un correo electrónico" v-model="email"
+                         required>
+                  <div class="invalid-feedback">
+                    Ingresa correo electrónico
+                  </div>
+                  <small>El usuario utilizará este correo para ingresar a su cuenta</small>
+                </div>
+
+                <div class="col-6">
+                  <label class="form-label">Contraseña</label>
+                  <input class="form-control" type="password" placeholder="Ingresa una contraseña"
+                         v-model="password" required>
+                  <div class="invalid-feedback">
+                    Ingresa una contraseña
+                  </div>
+                  <small>El usuario utilizará esta contraseña para ingresar</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-end">
+
+            <div v-if="show_error_message" class="alert alert-danger mt-3">
+              [[error_message]]
+            </div>
+
+            <button type="submit" :disabled="isLoading"
+                    class="btn btn-primary next-btn mb-0 mt-3">
+                        <span v-if="isLoading" class="spinner-border spinner-border-sm" role="status"
+                              aria-hidden="true"></span>
+              [[ isLoading ? 'Registrando...' : 'Registrar usuario' ]]
+              <i v-if="!isLoading" class="ms-3 fa-solid fa-sign-in-alt"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal fade" id="modalSuccessful" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Usuario registrado</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            [[successful_message]]
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'dashboard/vendor/dropzone/js/dropzone.js' %}"></script>
+  <script src="{% static 'dashboard/vendor/choices/js/choices.min.js' %}"></script>
+
+  <script src="{% static 'dashboard/js/dashboard/users_add.js' %}"></script>
+
+  <script>
+      (function () {
+          'use strict'
+          var forms = document.querySelectorAll('.needs-validation')
+          Array.prototype.slice.call(forms)
+              .forEach(function (form) {
+                  form.addEventListener('submit', function (event) {
+                      event.preventDefault()
+                      event.stopPropagation()
+                      if (!form.checkValidity()) {
+                          form.classList.add('was-validated')
+                      } else {
+                          root_vue.registerNewUser()
+                      }
+                  }, false)
+              })
+      })()
+  </script>
+
+{% endblock %}

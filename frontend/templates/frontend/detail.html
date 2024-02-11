@@ -1,0 +1,298 @@
+{% extends 'frontend/frontend_base.html' %}
+{% load static %}
+{% block title %}
+  Detalles de la cancha sintética
+{% endblock %}
+
+{% block content %}
+
+  <main>
+
+    <section class="pt-4 pt-md-5">
+      <div class="container">
+        <div class="row g-4 g-md-5">
+          <div class="col-xl-9">
+            <div class="container position-relative">
+              <div class="row">
+                <div class="col-12">
+                  <div class="d-md-flex justify-content-md-between">
+                    <div>
+                      <h1 class="fs-3">Grass sintético La revancha</h1>
+                      <ul class="nav nav-divider h6 text-body mb-0">
+                        <li class="nav-item">Ayacucho</li>
+                        <li class="nav-item">Jr manco capac 158</li>
+                      </ul>
+                    </div>
+                    <ul class="list-inline text-end">
+                      <!-- Heart icon -->
+                      <li class="list-inline-item">
+                        <a href="#" class="btn btn-sm btn-light px-2"><i class="fa-solid fa-fw fa-heart"></i></a>
+                      </li>
+                      <!-- Share icon -->
+                      <li class="list-inline-item dropdown">
+                        <!-- Share button -->
+                        <a href="#" class="btn btn-sm btn-light px-2" role="button" id="dropdownShare"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="fa-solid fa-fw fa-share-alt"></i>
+                        </a>
+                        <!-- dropdown button -->
+                        <ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded"
+                            aria-labelledby="dropdownShare">
+                          <li><a class="dropdown-item" href="#"><i class="fab fa-twitter-square me-2"></i>Twitter</a>
+                          </li>
+                          <li><a class="dropdown-item" href="#"><i class="fab fa-facebook-square me-2"></i>Facebook</a>
+                          </li>
+                          <li><a class="dropdown-item" href="#"><i class="fab fa-linkedin me-2"></i>LinkedIn</a></li>
+                          <li><a class="dropdown-item" href="#"><i class="fa-solid fa-copy me-2"></i>Copy link</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-md-5">
+                <div class="col-12">
+                  <div class="splide splide-main mb-3"
+                       data-splide='{"type" : "fade","autoplay": true,"heightRatio":0.5,"pagination":false,"arrows":false,"cover":true,"lazyLoad":"sequential"}'>
+                    <div class="splide__track">
+                      <ul class="splide__list">
+                        <li class="splide__slide rounded"><img src="{% static 'dashboard/images/gallery/fut1.jpg' %}"
+                                                               alt="">
+                          <!-- Glightbox image -->
+                          <a href="{% static 'dashboard/images/gallery/fut1.jpg' %}" class="stretched-link"
+                             data-glightbox=""
+                             data-gallery="banner"></a>
+                        </li>
+                        <li class="splide__slide rounded"><img src="{% static 'dashboard/images/gallery/fut3.jpg' %}"
+                                                               alt="">
+                          <!-- Glightbox image -->
+                          <a href="{% static 'dashboard/images/gallery/fut3.jpg' %}" class="stretched-link"
+                             data-glightbox=""
+                             data-gallery="banner"></a>
+                        </li>
+                        <li class="splide__slide rounded"><img src="{% static 'dashboard/images/gallery/fut4.jpg' %}"
+                                                               alt="">
+                          <!-- Glightbox image -->
+                          <a href="{% static 'dashboard/images/gallery/fut4.jpg' %}" class="stretched-link"
+                             data-glightbox=""
+                             data-gallery="banner"></a>
+                        </li>
+                        <li class="splide__slide rounded"><img src="{% static 'dashboard/images/gallery/fut5.jpg' %}"
+                                                               alt="">
+                          <!-- Glightbox image -->
+                          <a href="{% static 'dashboard/images/gallery/fut5.jpg' %}" class="stretched-link"
+                             data-glightbox=""
+                             data-gallery="banner"></a>
+                        </li>
+                        <li class="splide__slide rounded"><img src="{% static 'dashboard/images/gallery/fut9.jpg' %}"
+                                                               alt="">
+                          <!-- Glightbox image -->
+                          <a href="{% static 'dashboard/images/gallery/fut9.jpg' %}" class="stretched-link"
+                             data-glightbox=""
+                             data-gallery="banner"></a>
+                        </li>
+
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="splide splide-thumb"
+                       data-splide='{"rewind":true,"fixedWidth":200,"fixedHeight":120,"isNavigation":true,"gap":20,"focus":"center","pagination":false,"cover":true,"lazyLoad":"sequential","breakpoints":{"600":{"fixedWidth":150,"fixedHeight":80}}}'>
+                    <div class="splide__track">
+                      <ul class="splide__list">
+                        <li class="splide__slide"><img src="{% static 'dashboard/images/gallery/fut1.jpg' %}" alt="">
+                        </li>
+                        <li class="splide__slide"><img src="{% static 'dashboard/images/gallery/fut3.jpg' %}" alt="">
+                        </li>
+                        <li class="splide__slide"><img src="{% static 'dashboard/images/gallery/fut4.jpg' %}" alt="">
+                        </li>
+                        <li class="splide__slide"><img src="{% static 'dashboard/images/gallery/fut5.jpg' %}" alt="">
+                        </li>
+                        <li class="splide__slide"><img src="{% static 'dashboard/images/gallery/fut9.jpg' %}" alt="">
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- Arrows -->
+                    <div class="splide__arrows">
+                      <button class="splide__arrow  splide__arrow--prev p-splide__arrow--prev bg-primary"><span
+                          class="spi-angle-left text-white"><i class="fa-solid fa-fw fa-angle-left"></i></span></button>
+                      <button class="splide__arrow splide__arrow--next p-splide__arrow--next bg-primary"><span
+                          class="spi-angle-right text-white"><i class="fa-solid fa-fw fa-angle-right"></i></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card bg-transparent p-0">
+              <div class="card-header bg-transparent border-bottom pt-4 pt-md-5 pb-3">
+                <h3 class="mb-0">Descripción</h3>
+              </div>
+              <div class="card-body p-0 pt-3">
+                <p class="mb-4">Sistema de césped artificial de última generación indicado para fútbol de alto
+                  rendimiento profesional. Excelente durabilidad y resistencia con mantenimiento casi cero. Máximo
+                  rendimiento deportivo.
+                  Los clubes de fútbol, del mundo entero utilizan una superficie de juego de césped artificial. El
+                  motivo principal para escoger el césped artificial es que el mantenimiento y el tiempo necesario
+                  para preparar la cancha son muy bajas y porque el césped artificial se puede utilizar a diario
+                  comparado con el césped natural.
+
+                  <iframe class="w-100" height="200"
+                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425878428698!3d40.74076684379132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sGoogle!5e0!3m2!1sen!2sin!4v1586000412513!5m2!1sen!2sin"
+                          style="border:0;" aria-hidden="false" tabindex="0"></iframe>
+
+                <div class="row">
+                  <div class="col-12 col-md-6 col-sm-6">
+                    <h5>Términos y condiciones</h5>
+                    <ul class="list-group list-group-borderless mb-4">
+                      <li class="list-group-item">
+                        <span class="h6 mb-0 me-1">Tolerencia: </span>
+                        <span class="h6 fw-light mb-0">10 minutos</span>
+                      </li>
+                      <li class="list-group-item">
+                        <span class="h6 mb-0 me-1">Cancelar:</span>
+                        <span class="h6 fw-light mb-0">Faltando 1 día</span>
+                      </li>
+                      <li class="list-group-item">
+                        <span class="h6 mb-0 me-1">Devolición:</span>
+                        <span class="h6 fw-light mb-0">Completo</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-sm-6">
+                    <h5>Servicios ofrecidos</h5>
+                    <ul class="list-group list-group-borderless mb-0">
+                      <li class="list-group-item h6 fw-light d-flex mb-0">
+                        <i class="fa-solid fa-check-circle text-success me-2"></i>Cochera amplia
+                      </li>
+                      <li class="list-group-item h6 fw-light d-flex mb-0">
+                        <i class="fa-solid fa-check-circle text-success me-2"></i>Servicios higiénicos
+                      </li>
+                      <li class="list-group-item h6 fw-light d-flex mb-0">
+                        <i class="fa-solid fa-check-circle text-success me-2"></i>Bar y zona de invitados
+                      </li>
+                      <li class="list-group-item h6 fw-light d-flex mb-0">
+                        <i class="fa-solid fa-check-circle text-success me-2"></i>Camisetas para equipo
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="card-header bg-transparent border-bottom pt-4 pt-md-5 pb-3">
+                <h3 class="mb-0">Reservar</h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-xl-12">
+                    <!-- Title -->
+                    <h6 class="d-none d-xl-block mb-3">Ver disponibildad</h6>
+
+                    <!-- Booking from START -->
+                    <form class="bg-mode shadow rounded-3 position-relative p-4 pe-md-5 pb-5 pb-md-4">
+                      <div class="row g-4 align-items-center">
+                        <!-- Location -->
+                        <div class="col-lg-4">
+                          <div class="form-control-border form-control-transparent form-fs-md d-flex">
+                            <!-- Icon -->
+                            <i class="bi bi-geo-alt fs-3 me-2 mt-2"></i>
+                            <!-- Select input -->
+                            <div class="flex-grow-1">
+                              <label class="form-label">Cancha</label>
+                              <select class="form-select js-choice" data-search-enabled="true">
+                                <option value="">Selecciona</option>
+                                <option>Cancha 1 - Futbol</option>
+                                <option>Cancha 2 - Volley</option>
+                                <option>Cancha 3 - Futbol 6</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="d-flex">
+                            <i class="bi bi-calendar fs-3 me-2 mt-2"></i>
+                            <div class="form-control-border form-control-transparent form-fs-md">
+                              <label class="form-label">Fecha</label>
+                              <input type="text" class="form-control flatpickr" data-mode="date"
+                                     placeholder="Select date" value="19 Sep ">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-control-border form-control-transparent form-fs-md d-flex">
+                            <!-- Icon -->
+                            <i class="bi bi-person fs-3 me-2 mt-2"></i>
+                            <!-- Dropdown input -->
+                            <div class="w-100">
+                              <label class="form-label">Hora</label>
+                              <input type="text" class="form-control flatpickr" value="2:50 PM"
+                                     data-enableTime="true" data-noCalendar="true" placeholder="Select time">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="btn-position-md-middle">
+                        <a class="icon-lg btn btn-round btn-primary mb-0" href="{% url 'booking_payment' %}">
+                          <i class="bi bi-search fa-fw"></i></a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <aside class="col-xl-3">
+            <div class="row g-4">
+              <div class="col-md-6 col-xl-12">
+                <div class="card card-body border bg-transparent">
+                  <div class="hstack gap-2 mb-1">
+                    <h3 class="card-title mb-0">S/ 70</h3>
+                    <span class="fs-5">/por hora</span>
+                  </div>
+
+                  <div class="d-flex justify-content-between mb-4">
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item me-1 h6 mb-0">4.5</li>
+                      <li class="list-inline-item me-0 small"><i class="fa-solid fa-star text-warning"></i></li>
+                      <li class="list-inline-item me-0 small"><i class="fa-solid fa-star text-warning"></i></li>
+                      <li class="list-inline-item me-0 small"><i class="fa-solid fa-star text-warning"></i></li>
+                      <li class="list-inline-item me-0 small"><i class="fa-solid fa-star text-warning"></i></li>
+                      <li class="list-inline-item me-0 small"><i class="fa-solid fa-star-half-alt text-warning"></i>
+                      </li>
+                    </ul>
+                    <a href="#" class="mb-0 m-0 text-reset text-primary-hover">(Calificaciones)</a>
+                  </div>
+
+                  <div class="d-grid gap-2">
+                    <a href="{% url 'booking_confirmed' %}" class="btn btn-primary">Reservar ahora</a>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-6 col-xl-12">
+                <div class="card card-body bg-light p-4">
+                  <!-- Title -->
+                  <h4 class="card-title">¿Necesitas ayuda?</h4>
+
+                  <!-- List -->
+                  <ul class="list-group list-group-borderless">
+                    <li class="list-group-item py-3">
+                      <a href="#" class="h6 mb-0">
+                        <i class="bi fa-fw bi-telephone-forward text-primary fs-5 me-2"></i>
+                        <span class="fw-light me-1">Llámanos:</span>918387410
+                      </a>
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+{% endblock %}

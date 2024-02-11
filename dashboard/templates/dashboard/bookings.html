@@ -1,0 +1,127 @@
+{% extends 'dashboard/admin_base.html' %}
+{% load static %}
+
+{% block title %}
+  Reservas
+{% endblock %}
+
+{% block content %}
+  <div class="page-content-wrapper p-xxl-3">
+    <div class="row">
+      <div class="col-12 mb-4 mb-sm-5">
+        <div class="d-sm-flex justify-content-between align-items-center">
+          <h1 class="h3 mb-3 mb-sm-0">Lista de reservas</h1>
+          <div class="d-grid">
+            <a href="#" class="btn btn-primary mb-0">
+              <i class="bi bi-plus me-2"></i>
+              Agregar reserva
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <ul class="nav nav-pills-shadow nav-responsive">
+          <li class="nav-item">
+            <a class="nav-link mb-0 active" data-bs-toggle="tab" href="#tab-1">Todos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-2">Confirmados</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-3">Pendientes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-3">Cancelados</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Search -->
+      <div class="col-md-6 col-lg-3">
+        <form class="rounded position-relative">
+          <input class="form-control bg-transparent" type="search" placeholder="Buscar" aria-label="Buscar">
+          <button
+              class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
+              type="submit">
+            <i class="fas fa-search fs-6"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- Select -->
+      <div class="col-md-6 col-lg-3">
+        <form>
+          <select class="form-select js-choice" aria-label=".form-select-sm">
+            <option value="">Ordenar por</option>
+            <option>Pride moon Village Resort & Spa</option>
+            <option>Courtyard by Marriott New York</option>
+            <option>Park Plaza Lodge Hotel</option>
+            <option>Royal Beach Resort</option>
+          </select>
+        </form>
+      </div>
+    </div>
+    <div class="card shadow mt-5">
+      <div class="card-body">
+        <div class="bg-light rounded p-3 d-none d-lg-block">
+          <div class="row row-cols-7 g-4">
+            <div class="col"><h6 class="mb-0">Cancha</h6></div>
+            <div class="col"><h6 class="mb-0">Cliente</h6></div>
+            <div class="col"><h6 class="mb-0">Celular</h6></div>
+            <div class="col"><h6 class="mb-0">Fecha</h6></div>
+            <div class="col"><h6 class="mb-0">Estado</h6></div>
+            <div class="col"><h6 class="mb-0">Acciones</h6></div>
+          </div>
+        </div>
+
+        <div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
+          <!-- Data item -->
+          <div class="col">
+            <small class="d-block d-lg-none">Booked by:</small>
+            <div class="d-flex align-items-center">
+              <!-- Avatar -->
+              <div class="avatar avatar-xs flex-shrink-0">
+                <img class="avatar-img rounded-circle" src="{% static 'dashboard/images/gallery/fut9.jpg' %}"
+                     alt="avatar">
+              </div>
+              <!-- Info -->
+              <div class="ms-2">
+                <h6 class="mb-0 fw-light">Grass La Revancha</h6>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data item -->
+          <div class="col">
+            <small class="d-block d-lg-none">Cliente</small>
+            <h6 class="mb-0 fw-normal">Frank Lopez</h6>
+          </div>
+
+          <!-- Data item -->
+          <div class="col">
+            <small class="d-block d-lg-none">Celular:</small>
+            <h6 class="mb-0 fw-normal">987456789</h6>
+          </div>
+
+          <div class="col">
+            <small class="d-block d-lg-none">Fecha:</small>
+            <h6 class="mb-0 fw-normal">01/02/2023</h6>
+          </div>
+
+          <div class="col">
+            <small class="d-block d-lg-none">Estado:</small>
+            <div class="badge bg-success bg-opacity-10 text-success">Confirmado</div>
+          </div>
+          <div class="col">
+            <a href="#" class="btn btn-sm btn-light mb-0">Ver</a>
+            <a href="#" class="btn btn-sm btn-primary mb-0">Editar</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
