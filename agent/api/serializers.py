@@ -1,8 +1,14 @@
 from rest_framework import serializers
-from agent.models import Business
+from agent.models import Business, Field
 from django.core.files.base import ContentFile
 import base64
 import binascii
+
+
+class FieldSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Field
+        fields = ('id', 'name', 'sport', 'description', 'price_per_hour', 'image')
 
 
 class BusinessSerializer(serializers.ModelSerializer):

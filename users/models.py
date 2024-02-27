@@ -2,6 +2,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from locations.models import Department, Province, District
 
@@ -23,9 +24,9 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class DocumentType(models.Model):
-    title = models.CharField(max_length=150)
-    created_at = models.DateTimeField(auto_now_add=True)
-    status = models.BooleanField(default=True)
+    title = models.CharField(max_length=150, verbose_name=_("Nombre del documento"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Fecha de creación"))
+    status = models.BooleanField(default=True, verbose_name=_("Estado"))
 
     class Meta:
         verbose_name = "Tipo de documento"
@@ -38,7 +39,7 @@ class DocumentType(models.Model):
 
 class User(AbstractUser):
     objects = CustomUserManager()
-
+    USERNAME_FIELD = 'email'
     CUSTOMER = 1
     SELLER = 2
     ADMIN = 3
@@ -48,21 +49,19 @@ class User(AbstractUser):
         (ADMIN, 'Administrador')
     ]
 
-    email = models.EmailField(unique=True)
-    photo = models.ImageField(upload_to='users/photos', default='users/placeholder.png')
-    document_type = models.ForeignKey(DocumentType, null=True, blank=True, on_delete=models.SET_NULL)
-    document_number = models.IntegerField(null=True, blank=True)
-    phone_code = models.CharField(max_length=8, null=True, blank=True)
-    phone_number = models.IntegerField(null=True, blank=True)
-    phone_verified = models.BooleanField(default=False)
-    role = models.IntegerField(choices=USER_ROLE, default=ADMIN)
-    status = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
-    culqi_id = models.CharField(max_length=255, null=True, blank=True)
+    email = models.EmailField(unique=True, verbose_name=_("Correo electrónico"))
+    photo = models.ImageField(upload_to='users/photos', default='users/placeholder.png', null=True, blank=True, verbose_name=_("Foto"))
+    document_type = models.ForeignKey(DocumentType, null=True, blank=True, on_delete=models.SET_NULL, verbose_name=_("Tipo de documento"))
+    document_number = models.IntegerField(null=True, blank=True, verbose_name=_("Número de documento"))
+    phone_code = models.CharField(max_length=8, null=True, blank=True, verbose_name=_("Codigo pais(+51)"))
+    phone_number = models.IntegerField(null=True, blank=True, verbose_name=_("Número de celular"))
+    phone_verified = models.BooleanField(default=False, verbose_name=_("Velular verificado"))
+    role = models.IntegerField(choices=USER_ROLE, default=ADMIN, verbose_name=_("Tipo de usuario"))
+    status = models.BooleanField(default=True, verbose_name=_("Estado"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Fecha de creación"))
+    update_at = models.DateTimeField(auto_now=True, verbose_name=_("Fecha de actualización"))
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'username', 'document_number', 'phone_code', 'phone_number']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone_code', 'phone_number']
 
     class Meta:
         verbose_name = "Usuario"
@@ -86,21 +85,12 @@ class User(AbstractUser):
     def get_role_str(self) -> str:
         return self.get_role_display()
 
-    def has_culqi_id(self) -> bool:
-        return True if self.culqi_id else False
-
-    def add_culqi_id(self, culqi_id: str) -> str:
-        self.culqi_id = culqi_id
-        self.save()
-
-        return self.culqi_id
-
 
 class ResetPasswordRequest(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    token = models.CharField(max_length=100, unique=True)
-    status = models.BooleanField(default=True)
-    created_at = models.DateTimeField(default=timezone.now)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("Usuario"))
+    token = models.CharField(max_length=100, unique=True, verbose_name=_("Token"))
+    status = models.BooleanField(default=True, verbose_name=_("Estado"))
+    created_at = models.DateTimeField(default=timezone.now, verbose_name=_("Fecha de creación"))
 
     class Meta:
         verbose_name = "Token ResetPassword"
@@ -115,15 +105,14 @@ class ResetPasswordRequest(models.Model):
 
 
 class Code(models.Model):
-    number = models.CharField(max_length=8, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    used = models.BooleanField(default=False)
-    sid = models.CharField(max_length=150, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    number = models.CharField(max_length=8, blank=True, verbose_name=_("Código"))
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("Usuario"))
+    used = models.BooleanField(default=False, verbose_name=_("Utilizado"))
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name=_("Fecha de creación"))
 
     class Meta:
-        verbose_name = "Código SMS"
-        verbose_name_plural = "Códigos SMS"
+        verbose_name = "Código de verificación"
+        verbose_name_plural = "Códigos de verificación"
 
     def __str__(self):
         return self.number + " " + str(self.user.phone_number) + " " + self.user.email

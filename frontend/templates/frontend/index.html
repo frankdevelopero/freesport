@@ -36,16 +36,16 @@
                     <!-- Location -->
                     <div class="col-md-6 col-lg-4">
                       <label class="h6 fw-normal mb-0"><i class="bi bi-geo-alt text-primary me-1"></i>Ciudad</label>
-                      <!-- Input field -->
                       <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
                         <select class="form-select js-choice" data-search-enabled="true">
-                          <option value="">Selecciona tu ciudad</option>
-                          <option>Ayacucho, Huamanga</option>
-                          <option>Huanta, Ayacucho</option>
-                          <option>Lima, Lima</option>
+                          <option value="">Selecciona</option>
+                          {% for distrito, provincia in locations %}
+                            <option value="{{ distrito.id }}">{{ distrito }}, {{ provincia }}</option>
+                          {% endfor %}
                         </select>
                       </div>
                     </div>
+
 
                     <div class="col-md-6 col-lg-4">
                       <label class="h6 fw-normal mb-0">
@@ -55,17 +55,18 @@
                       <!-- Input field -->
                       <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
                         <select class="form-select js-choice" data-search-enabled="true">
-                          <option value="">Selecciona un deporte</option>
-                          <option>Futbool</option>
-                          <option>Volley</option>
-                          <option>Basquet</option>
-                          <option>Futbol 11</option>
+                          <option value="">Selecciona</option>
+                          {% for sport in sports %}
+                            <option value="{{ sport.id }}">{{ sport }}</option>
+                          {% endfor %}
                         </select>
+
                       </div>
                     </div>
 
                     <div class="col-md-6 col-lg-4">
-                      <label class="h6 fw-normal mb-0"><i class="bi bi-calendar text-primary me-1"></i>Fecha y hora</label>
+                      <label class="h6 fw-normal mb-0"><i class="bi bi-calendar text-primary me-1"></i>Fecha y
+                        hora</label>
                       <!-- Input field -->
                       <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
                         <input type="text" class="form-control flatpickr py-2" data-date-format="d M Y"
@@ -79,7 +80,8 @@
                 <!-- Button -->
                 <div class="col-xl-2">
                   <div class="d-grid">
-                    <a href="{% url 'search' %}" class="btn btn-lg btn-primary mb-0">Buscar <i class="bi bi-arrow-right"></i></a>
+                    <a href="{% url 'search' %}" class="btn btn-lg btn-primary mb-0">Buscar <i
+                        class="bi bi-arrow-right"></i></a>
                   </div>
                 </div>
               </div>

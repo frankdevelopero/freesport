@@ -6,7 +6,7 @@
 
 {% block content %}
   <main>
-    <section class="bg-primary">
+    <section class="bg-primary" id="vue_search">
       <div class="container">
         <div class="row">
           <div class="col-12">
@@ -20,24 +20,22 @@
                         <div class="col-md-6 col-xl-4">
                           <div class="form-size-lg">
                             <label class="form-label">Ciudad</label>
-                            <select class="form-select js-choice" data-search-enabled="true"
-                                    aria-label=".form-select-sm">
-                              <option value="">Selecciona una ciudad</option>
-                              <option selected>Huamanga, Ayacucho</option>
-                              <option>Huanta, Ayacucho</option>
-                              <option>Huancayo, Junin</option>
+                            <select class="form-select js-choice" data-search-enabled="true">
+                              <option value="">Selecciona</option>
+                              {% for distrito, provincia in locations %}
+                                <option value="{{ distrito.id }}">{{ distrito }}, {{ provincia }}</option>
+                              {% endfor %}
                             </select>
                           </div>
                         </div>
                         <div class="col-md-6 col-xl-4">
                           <div class="form-size-lg">
                             <label class="form-label">Deporte</label>
-                            <select class="form-select js-choice" data-search-enabled="true"
-                                    aria-label=".form-select-sm">
-                              <option value="">Selecciona un deporte</option>
-                              <option>Futbol 5</option>
-                              <option>Volley</option>
-                              <option>Fubtol 8</option>
+                            <select class="form-select js-choice" data-search-enabled="true">
+                              <option value="">Selecciona</option>
+                              {% for sport in sports %}
+                                <option value="{{ sport.id }}">{{ sport }}</option>
+                              {% endfor %}
                             </select>
                           </div>
                         </div>
@@ -56,7 +54,7 @@
                       </div>
                     </div>
                     <div class="col-xl-2 d-grid mt-xl-auto">
-                      <a class="btn btn-lg btn-primary mb-0" href="#">Buscar <i class="bi bi-search"></i></a>
+                      <button class="btn btn-lg btn-primary mb-0" id="searchButton">Buscar <i class="bi bi-search"></i></button>
                     </div>
                   </form>
                 </div>
@@ -171,12 +169,11 @@
                       </div>
                     </div>
                     <div class="col-sm-6 col-md-4 col-xl-6">
-                      <h4 class="card-title mb-2"><a href="{% url 'detail' %}" class="stretched-link">Grass la Revancha</a>
+                      <h4 class="card-title mb-2"><a href="{% url 'detail' %}" class="stretched-link">Grass la
+                        Revancha</a>
                       </h4>
                       <ul class="nav nav-divider h6 fw-normal mb-2">
                         <li class="nav-item ">8pm</li>
-                        <li class="nav-item">9pm</li>
-                        <li class="nav-item">10pm</li>
                       </ul>
                       <ul class="list-inline mb-0">
                         <li class="list-inline-item h6 fw-normal me-1 mb-0">4.5</li>
@@ -223,30 +220,30 @@
                   </div>
                 </div>
               </div>
-
-
-              <nav class="d-flex justify-content-center" aria-label="navigation">
-                <ul class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-                  <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i
-                      class="fa-solid fa-angle-left"></i></a></li>
-                  <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item mb-0"><a class="page-link" href="#">..</a></li>
-                  <li class="page-item mb-0"><a class="page-link" href="#">6</a></li>
-                  <li class="page-item mb-0"><a class="page-link" href="#"><i class="fa-solid fa-angle-right"></i></a>
-                  </li>
-                </ul>
-              </nav>
             </div>
           </div>
-
-
         </div>
-
       </div>
     </section>
-    <!-- =======================
-    Cab list END -->
 
   </main>
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'frontend/search_vue.js' %}"></script>
+
+  <script>
+      document.getElementById('searchButton').addEventListener('click', function () {
+          // Obtén el valor del input de búsqueda
+          var searchTerm = document.getElementById('searchInput').value;
+
+          // Verifica que el término de búsqueda no esté vacío
+          if (searchTerm) {
+              search(searchTerm);
+          } else {
+              console.error('Por favor ingresa un término de búsqueda.');
+          }
+      });
+  </script>
+
 {% endblock %}
