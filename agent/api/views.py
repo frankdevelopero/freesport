@@ -1,71 +1,86 @@
-from datetime import datetime
-
-from django.http import JsonResponse
+from django.db.models import Min, Max
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics, viewsets
 from django.db.models import Q
 from django.utils import timezone
-from django.utils.timezone import make_aware
 from agent.api.serializers import BusinessSerializer
 from agent.models import Business, Field
 from booking.models import Booking
-from django.views.decorators.http import require_http_methods
+from django.utils.dateparse import parse_datetime
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 
 
-
-
-def search_available_fields(sport_id, search_date_time, district_id):
-    # Convierte la fecha y hora de búsqueda a un objeto datetime y luego a una hora consciente de la zona horaria
-    search_datetime = make_aware(datetime.strptime(search_date_time, '%Y-%m-%dT%H:%M:%SZ'))
-
-    # Filtra las empresas por distrito y las canchas por deporte
+def search_available_fields(sport_id, search_date_time, district_id, request):
     available_fields = Field.objects.filter(
         sport_id=sport_id,
         business__district_id=district_id
     ).exclude(
-        # Excluye las canchas que tienen una reserva en la fecha y hora de búsqueda
-        booking__start_time__lte=search_datetime,
-        booking__end_time__gte=search_datetime,
-        booking__status__in=[1, 2]  # Considera reservas pendientes y confirmadas
-    )
+        booking__start_time__lte=search_date_time,
+        booking__end_time__gte=search_date_time,
+        booking__status__in=[1, 2]
+    ).prefetch_related('price_ranges', 'business__services')
 
-    # Prepara la respuesta con la información de las canchas y las empresas
     response_data = []
     for field in available_fields:
+        image_url = field.business.image.url if field.business.image else None
+        if image_url:
+            image_url = request.build_absolute_uri(image_url)
+
+        # Calcular el precio menor y mayor
+        price_range = field.price_ranges.aggregate(
+            Min('price'),
+            Max('price')
+        )
+        price_min = price_range['price__min']
+        price_max = price_range['price__max']
+
+        # Formatear el rango de precios
+        price_range_str = f"S/ {price_min} - {price_max}" if price_min != price_max else f"S/ {price_min}"
+
+        # Recuperar y formatear los servicios del negocio
+        services = [{
+            "id": service.id,
+            "name": service.name,
+            "status": service.status
+        } for service in field.business.services.all()]
+
         field_data = {
             "field_id": field.id,
             "field_name": field.name,
-            "price_per_hour": field.price_per_hour,
+            "price_range": price_range_str,
             "requested_datetime": search_date_time,
             "business": {
                 "id": field.business.id,
                 "title": field.business.title,
                 "description": field.business.description,
-                "image": field.business.image.url if field.business.image else None,
+                "image": image_url,
                 "address_display": field.business.address,
                 "latitude": field.business.latitude,
-                "longitude": field.business.longitude
+                "longitude": field.business.longitude,
+                "services": services
             }
         }
         response_data.append(field_data)
 
+    print(response_data)
     return response_data
 
 
 @csrf_exempt
-@require_http_methods(["GET"])  # Asegúrate de que solo se acepten solicitudes GET
+@require_http_methods(["GET"])
 def available_fields_view(request):
     sport_id = request.GET.get('sport_id')
-    search_date_time = request.GET.get('date_time')
+    date_time_str = request.GET.get('date_time')
+    date_time = parse_datetime(date_time_str)
     district_id = request.GET.get('district_id')
 
-    if not all([sport_id, search_date_time, district_id]):
+    if not all([sport_id, date_time, district_id]):
         return JsonResponse({'error': 'Missing parameters'}, status=400)
 
-    available_fields = search_available_fields(sport_id, search_date_time, district_id)
+    available_fields = search_available_fields(sport_id, date_time, district_id, request)
     return JsonResponse(available_fields, safe=False)
-
 
 
 class BusinessViewSet(viewsets.ModelViewSet):

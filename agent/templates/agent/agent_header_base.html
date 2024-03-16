@@ -4,9 +4,9 @@
   <nav class="navbar navbar-expand-xl">
     <div class="container">
       <!-- Logo START -->
-      <a class="navbar-brand" href="{% url 'agent_dashboard' %}">
-        <img class="light-mode-item navbar-brand-item" src="{% static 'dashboard/images/logo.svg' %}" alt="logo">
-        <img class="dark-mode-item navbar-brand-item" src="{% static 'dashboard/images/logo-light.svg' %}" alt="logo">
+      <a class="navbar-brand" href="{% url 'agent_bookings' %}">
+        <img class="light-mode-item navbar-brand-item" src="{% static 'frontend/img/logo.png' %}" alt="logo">
+        <img class="dark-mode-item navbar-brand-item" src="{% static 'frontend/img/logo.png' %}" alt="logo">
       </a>
       <button class="navbar-toggler ms-auto mx-3 me-md-0 p-0 p-sm-2" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
@@ -20,8 +20,7 @@
       <div class="navbar-collapse collapse" id="navbarCollapse">
         <ul class="navbar-nav navbar-nav-scroll">
 
-          <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Contáctenos</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'agent_bookings' %}">Inicio</a></li>
         </ul>
       </div>
       <ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
@@ -40,8 +39,8 @@
                        alt="avatar">
                 </div>
                 <div>
-                  <a class="h6 mt-2 mt-sm-0" href="#">Frank Lopez</a>
-                  <p class="small m-0">frank.lopezcoras@gmail.com</p>
+                  <a class="h6 mt-2 mt-sm-0" href="#">{{ request.user.first_name }} {{ request.user.last_name }}</a>
+                    <p class="small m-0">{{ request.user.email }}</p>
                 </div>
               </div>
             </li>
@@ -50,11 +49,9 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="{% url 'agent_dashboard' %}"><i class="bi bi-house fa-fw me-2"></i>Inicio</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-bookmark-check fa-fw me-2"></i>Mis reservas</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-heart fa-fw me-2"></i>Mis canchas</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Mis datos</a></li>
-            <li><a class="dropdown-item bg-danger-soft-hover" href="{% url 'logout' %}"><i class="bi bi-power fa-fw me-2"></i>Cerrar
+            <li><a class="dropdown-item" href="#"><i class="bi bi-bookmark-check fa-fw me-2"></i>Calendario</a></li>
+            <li><a class="dropdown-item bg-danger-soft-hover" href="{% url 'logout' %}"><i
+                class="bi bi-power fa-fw me-2"></i>Cerrar
               sesión</a></li>
             <li>
               <hr class="dropdown-divider">

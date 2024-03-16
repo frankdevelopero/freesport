@@ -40,18 +40,12 @@
 
                   {% include 'users/user_account_menu.html' %}
                 </div>
-                <!-- Card body END -->
               </div>
             </div>
           </div>
-          <!-- Responsive offcanvas body END -->
         </div>
-        <!-- Sidebar END -->
-
-        <!-- Main content START -->
         <div class="col-lg-8 col-xl-9">
 
-          <!-- Offcanvas menu button -->
           <div class="d-grid mb-0 d-lg-none w-100">
             <button class="btn btn-primary mb-4" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
@@ -88,171 +82,211 @@
 
                 <div class="tab-pane fade show active" id="tab-1">
                   <h6>Reservas activas actualemente (2)</h6>
-                  <div class="card border mb-3">
-                    <!-- Card header -->
-                    <div class="card-header border-bottom d-md-flex justify-content-md-between align-items-center">
-                      <!-- Icon and Title -->
-                      <div class="d-flex align-items-center">
-                        <div class="icon-lg bg-light rounded-circle flex-shrink-0">
-                          <i class="fa-solid fa-futbol-ball"></i>
+                  {% for booking in confirmed_bookings %}
+                    <div class="card border mb-3">
+                      <!-- Card header -->
+                      <div class="card-header border-bottom d-md-flex justify-content-md-between align-items-center">
+                        <!-- Icon and Title -->
+                        <div class="d-flex align-items-center">
+                          <a href="{% url 'detail' booking.business.id %}">
+                            <div class="d-flex justify-content-center align-items-center bg-light rounded-circle"
+                                 style="width: 50px; height: 50px; overflow: hidden;">
+                              <img src="{{ booking.business.image.url }}" alt="Imagen Empresa" style="width: 100%;">
+                            </div>
+                          </a>
+                          <!-- Title -->
+                          <div class="ms-2">
+                            <h6 class="card-title mb-0">{{ booking.business.title }}</h6>
+                            <ul class="nav nav-divider small">
+                              <li class="nav-item">Reservar: #000F001</li>
+                              <li class="nav-item">{{ booking.field.sport.title }}</li>
+                            </ul>
+                          </div>
                         </div>
-                        <!-- Title -->
-                        <div class="ms-2">
-                          <h6 class="card-title mb-0">Grass la revancha</h6>
-                          <ul class="nav nav-divider small">
-                            <li class="nav-item">Reservar: #000F001</li>
-                            <li class="nav-item">Volley</li>
-                          </ul>
+
+                        <!-- Button -->
+                        <div class="mt-2 mt-md-0">
+                          <a href="{% url 'booking_confirmed' booking.id %}" target="_blank"
+                             class="btn btn-primary-soft mb-0">Ver detalles</a>
+                          <p class="text-success text-md-end mb-0">Reserva confirmada</p>
                         </div>
                       </div>
 
-                      <!-- Button -->
-                      <div class="mt-2 mt-md-0">
-                        <a href="#" class="btn btn-primary-soft mb-0">Ver detalles</a>
-                        <p class="text-success text-md-end mb-0">Reserva confirmada</p>
-                      </div>
-                    </div>
+                      <!-- Card body -->
+                      <div class="card-body">
+                        <div class="row g-3">
+                          <div class="col-sm-6 col-md-4">
+                            <span>Desde</span>
+                            <h6 class="mb-0">{{ booking.start_time }}</h6>
+                          </div>
 
-                    <!-- Card body -->
-                    <div class="card-body">
-                      <div class="row g-3">
-                        <div class="col-sm-6 col-md-4">
-                          <span>Desde</span>
-                          <h6 class="mb-0">Jueves 05 Enero 12:00 PM</h6>
-                        </div>
+                          <div class="col-sm-6 col-md-4">
+                            <span>Hasta</span>
+                            <h6 class="mb-0">{{ booking.end_time }}</h6>
+                          </div>
 
-                        <div class="col-sm-6 col-md-4">
-                          <span>Hasta</span>
-                          <h6 class="mb-0">Jueves 05 Enero 2:00 PM</h6>
-                        </div>
-
-                        <div class="col-md-4">
-                          <span>Pagado con</span>
-                          <h6 class="mb-0">Yape</h6>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card border mb">
-                    <!-- Card header -->
-                    <div class="card-header border-bottom d-md-flex justify-content-md-between align-items-center">
-                      <!-- Icon and Title -->
-                      <div class="d-flex align-items-center">
-                        <div class="icon-lg bg-light rounded-circle flex-shrink-0">
-                          <i class="fa-solid fa-futbol-ball"></i>
-                        </div>
-                        <!-- Title -->
-                        <div class="ms-2">
-                          <h6 class="card-title mb-0">Grass Ronaldinho</h6>
-                          <ul class="nav nav-divider small">
-                            <li class="nav-item">Reservar: #000F001</li>
-                            <li class="nav-item">Futbol</li>
-                          </ul>
-                        </div>
-                      </div>
-
-                      <!-- Button -->
-                      <div class="mt-2 mt-md-0">
-                        <a href="#" class="btn btn-primary-soft mb-0">Ver detalles</a>
-                        <p class="text-warning text-md-end mb-0">Reserva pendiente</p>
-                      </div>
-                    </div>
-
-                    <!-- Card body -->
-                    <div class="card-body">
-                      <div class="row g-3">
-                        <div class="col-sm-6 col-md-4">
-                          <span>Desde</span>
-                          <h6 class="mb-0">Jueves 05 Enero 12:00 PM</h6>
-                        </div>
-
-                        <div class="col-sm-6 col-md-4">
-                          <span>Hasta</span>
-                          <h6 class="mb-0">Jueves 05 Enero 2:00 PM</h6>
-                        </div>
-
-                        <div class="col-md-4">
-                          <span>Pagado con</span>
-                          <h6 class="mb-0">Yape</h6>
+                          <div class="col-md-4">
+                            <span>Pagado con</span>
+                            <h6 class="mb-0">Yape</h6>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  {% empty %}
+                    <div class="bg-mode shadow p-4 rounded overflow-hidden">
+                      <div class="row g-4 align-items-center">
+                        <div class="col-md-9">
+                          <h6>Parece que todavía no completaste una reserva</h6>
+                          <h4 class="mb-2">Cuando una reserva se lleve acabo se mostrará aquí.</h4>
+                          <a href="{% url 'index' %}" class="btn btn-primary-soft mb-0">Empezar a reservar ahora</a>
+                        </div>
+                        <div class="col-md-3 text-end">
+                          <img src="{% static 'dashboard/images/element/17.svg' %}" class="mb-n5" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+
                 </div>
                 <div class="tab-pane fade" id="tab-2">
                   <h6>Reservas canceladas (1)</h6>
 
-                  <!-- Card item START -->
-                  <div class="card border">
-                    <!-- Card header -->
-                    <div class="card-header border-bottom d-md-flex justify-content-md-between align-items-center">
-                      <!-- Icon and Title -->
-                      <div class="d-flex align-items-center">
-                        <div class="icon-lg bg-light rounded-circle flex-shrink-0">
-                          <i class="fa-solid fa-futbol-ball"></i>
+                  {% for booking in cancelled_bookings %}
+                    <div class="card border mb-3">
+                      <!-- Card header -->
+                      <div class="card-header border-bottom d-md-flex justify-content-md-between align-items-center">
+                        <!-- Icon and Title -->
+                        <div class="d-flex align-items-center">
+                          <a href="{% url 'detail' booking.business.id %}">
+                            <div class="d-flex justify-content-center align-items-center bg-light rounded-circle"
+                                 style="width: 50px; height: 50px; overflow: hidden;">
+                              <img src="{{ booking.business.image.url }}" alt="Imagen Empresa" style="width: 100%;">
+                            </div>
+                          </a>
+
+                          <!-- Title -->
+                          <div class="ms-2">
+                            <h6 class="card-title mb-0">{{ booking.business.title }}</h6>
+                            <ul class="nav nav-divider small">
+                              <li class="nav-item">Reservar: #000F001</li>
+                              <li class="nav-item">{{ booking.field.sport.title }}</li>
+                            </ul>
+                          </div>
                         </div>
-                        <!-- Title -->
-                        <div class="ms-2">
-                          <h6 class="card-title mb-0">Grass sintético Bolichera</h6>
-                          <ul class="nav nav-divider small">
-                            <li class="nav-item">Reservar: #000F001</li>
-                            <li class="nav-item">Futbol 5</li>
-                          </ul>
+
+                        <!-- Button -->
+                        <div class="mt-2 mt-md-0">
+                          <a href="{% url 'booking_confirmed' booking.id %}" target="_blank"
+                             class="btn btn-primary-soft mb-0">Ver detalles</a>
+                          <p class="text-danger text-md-end mb-0">Reserva cancelada</p>
                         </div>
                       </div>
 
-                      <!-- Button -->
-                      <div class="mt-2 mt-md-0">
-                        <a href="#" class="btn btn-primary-soft mb-0">Ver detalles</a>
-                        <p class="text-danger text-md-end mb-0">Reserva cancelada</p>
+                      <!-- Card body -->
+                      <div class="card-body">
+                        <div class="row g-3">
+                          <div class="col-sm-6 col-md-4">
+                            <span>Desde</span>
+                            <h6 class="mb-0">{{ booking.start_time }}</h6>
+                          </div>
+
+                          <div class="col-sm-6 col-md-4">
+                            <span>Hasta</span>
+                            <h6 class="mb-0">{{ booking.end_time }}</h6>
+                          </div>
+
+                          <div class="col-md-4">
+                            <span>Pagado con</span>
+                            <h6 class="mb-0">Yape</h6>
+                          </div>
+                        </div>
                       </div>
                     </div>
-
-                    <!-- Card body -->
-                    <div class="card-body">
-                      <div class="row g-3">
-                        <div class="col-sm-6 col-md-4">
-                          <span>Desde</span>
-                          <h6 class="mb-0">Jueves 05 Enero 12:00 PM</h6>
+                  {% empty %}
+                    <div class="bg-mode shadow p-4 rounded overflow-hidden">
+                      <div class="row g-4 align-items-center">
+                        <div class="col-md-9">
+                          <h6>Parece que todavía no completaste una reserva</h6>
+                          <h4 class="mb-2">Cuando una reserva se lleve acabo se mostrará aquí.</h4>
+                          <a href="{% url 'index' %}" class="btn btn-primary-soft mb-0">Empezar a reservar ahora</a>
                         </div>
-
-                        <div class="col-sm-6 col-md-4">
-                          <span>Hasta</span>
-                          <h6 class="mb-0">Jueves 05 Enero 2:00 PM</h6>
-                        </div>
-
-                        <div class="col-md-4">
-                          <span>Pagado con</span>
-                          <h6 class="mb-0">Yape</h6>
+                        <div class="col-md-3 text-end">
+                          <img src="{% static 'dashboard/images/element/17.svg' %}" class="mb-n5" alt="">
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <!-- Card item END -->
+                  {% endfor %}
                 </div>
                 <div class="tab-pane fade" id="tab-3">
-                  <div class="bg-mode shadow p-4 rounded overflow-hidden">
-                    <div class="row g-4 align-items-center">
-                      <!-- Content -->
-                      <div class="col-md-9">
-                        <h6>Parece que todavía no completaste una reserva</h6>
-                        <h4 class="mb-2">Cuando una reserva se lleve acabo se mostrará aquí.</h4>
-                        <a href="{% url 'index' %}" class="btn btn-primary-soft mb-0">Empezar a reservar ahora</a>
+                  <h6>Reservas finalizadas</h6>
+
+                  {% for booking in completed_bookings %}
+                    <div class="card border mb-3">
+                      <!-- Card header -->
+                      <div class="card-header border-bottom d-md-flex justify-content-md-between align-items-center">
+                        <!-- Icon and Title -->
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex justify-content-center align-items-center bg-light rounded-circle"
+                               style="width: 50px; height: 50px; overflow: hidden;">
+                            <img src="{{ booking.business.image.url }}" alt="Imagen Empresa" style="width: 100%;">
+                          </div>
+                          <!-- Title -->
+                          <div class="ms-2">
+                            <h6 class="card-title mb-0">{{ booking.business.title }}</h6>
+                            <ul class="nav nav-divider small">
+                              <li class="nav-item">Reservar: #000F001</li>
+                              <li class="nav-item">{{ booking.field.sport.title }}</li>
+                            </ul>
+                          </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="mt-2 mt-md-0">
+                          <a href="{% url 'booking_confirmed' booking.id %}" target="_blank"
+                             class="btn btn-primary-soft mb-0">Ver detalles</a>
+                          <p class="text-success text-md-end mb-0">Reserva finalizada</p>
+                        </div>
                       </div>
-                      <!-- Image -->
-                      <div class="col-md-3 text-end">
-                        <img src="{% static 'dashboard/images/element/17.svg' %}" class="mb-n5" alt="">
+
+                      <!-- Card body -->
+                      <div class="card-body">
+                        <div class="row g-3">
+                          <div class="col-sm-6 col-md-4">
+                            <span>Desde</span>
+                            <span class="mb-0"><small>{{ booking.start_time }}</small></span>
+                          </div>
+
+                          <div class="col-sm-6 col-md-4">
+                            <span>Hasta</span>
+                            <span class="mb-0"><small>{{ booking.end_time }}</small></span>
+                          </div>
+
+                          <div class="col-md-4">
+                            <span>Pagado con</span>
+                            <h6 class="mb-0">Yape</h6>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-
+                  {% empty %}
+                    <div class="bg-mode shadow p-4 rounded overflow-hidden">
+                      <div class="row g-4 align-items-center">
+                        <div class="col-md-9">
+                          <h6>Parece que todavía no completaste una reserva</h6>
+                          <h4 class="mb-2">Cuando una reserva se lleve acabo se mostrará aquí.</h4>
+                          <a href="{% url 'index' %}" class="btn btn-primary-soft mb-0">Empezar a reservar ahora</a>
+                        </div>
+                        <div class="col-md-3 text-end">
+                          <img src="{% static 'dashboard/images/element/17.svg' %}" class="mb-n5" alt="">
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
                 </div>
               </div>
-
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>

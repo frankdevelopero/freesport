@@ -4,10 +4,12 @@
   Detalles de la cancha sintética
 {% endblock %}
 
+{% block css %}
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css' rel='stylesheet'/>
+{% endblock %}
+
 {% block content %}
-
-  <main>
-
+  <main id="vue_detail">
     <section class="pt-4 pt-md-5">
       <div class="container">
         <div class="row g-4 g-md-5">
@@ -17,10 +19,12 @@
                 <div class="col-12">
                   <div class="d-md-flex justify-content-md-between">
                     <div>
-                      <h1 class="fs-3">Grass sintético La revancha</h1>
+                      <h1 class="fs-3">{{ business.title }}</h1>
                       <ul class="nav nav-divider h6 text-body mb-0">
-                        <li class="nav-item">Ayacucho</li>
-                        <li class="nav-item">Jr manco capac 158</li>
+                        <li class="nav-item">{{ business.address }}</li>
+                        <li class="nav-item">{{ business.district.title }}, {{ business.province.title }}
+                          - {{ business.department.title }}</li>
+
                       </ul>
                     </div>
                     <ul class="list-inline text-end">
@@ -56,41 +60,32 @@
                        data-splide='{"type" : "fade","autoplay": true,"heightRatio":0.5,"pagination":false,"arrows":false,"cover":true,"lazyLoad":"sequential"}'>
                     <div class="splide__track">
                       <ul class="splide__list">
-                        <li class="splide__slide rounded"><img src="{% static 'dashboard/images/gallery/fut1.jpg' %}"
-                                                               alt="">
-                          <!-- Glightbox image -->
-                          <a href="{% static 'dashboard/images/gallery/fut1.jpg' %}" class="stretched-link"
+                        <li class="splide__slide rounded">
+                          <img src="{{ business.image.url }}" alt="">
+                          <a href="{{ business.image.url }}" class="stretched-link"
                              data-glightbox=""
-                             data-gallery="banner"></a>
+                             data-gallery="banner">
+                          </a>
                         </li>
-                        <li class="splide__slide rounded"><img src="{% static 'dashboard/images/gallery/fut3.jpg' %}"
-                                                               alt="">
-                          <!-- Glightbox image -->
-                          <a href="{% static 'dashboard/images/gallery/fut3.jpg' %}" class="stretched-link"
-                             data-glightbox=""
-                             data-gallery="banner"></a>
-                        </li>
-                        <li class="splide__slide rounded"><img src="{% static 'dashboard/images/gallery/fut4.jpg' %}"
-                                                               alt="">
-                          <!-- Glightbox image -->
-                          <a href="{% static 'dashboard/images/gallery/fut4.jpg' %}" class="stretched-link"
-                             data-glightbox=""
-                             data-gallery="banner"></a>
-                        </li>
-                        <li class="splide__slide rounded"><img src="{% static 'dashboard/images/gallery/fut5.jpg' %}"
-                                                               alt="">
-                          <!-- Glightbox image -->
-                          <a href="{% static 'dashboard/images/gallery/fut5.jpg' %}" class="stretched-link"
-                             data-glightbox=""
-                             data-gallery="banner"></a>
-                        </li>
-                        <li class="splide__slide rounded"><img src="{% static 'dashboard/images/gallery/fut9.jpg' %}"
-                                                               alt="">
-                          <!-- Glightbox image -->
-                          <a href="{% static 'dashboard/images/gallery/fut9.jpg' %}" class="stretched-link"
-                             data-glightbox=""
-                             data-gallery="banner"></a>
-                        </li>
+                        {% for field in fields %}
+                          <li class="splide__slide rounded">
+                            <img src="{{ field.image.url }}" alt="">
+                            <a href="{{ field.image.url }}" class="stretched-link"
+                               data-glightbox=""
+                               data-gallery="banner">
+                            </a>
+                          </li>
+                        {% endfor %}
+
+                        {% for image in images %}
+                          <li class="splide__slide rounded">
+                            <img src="{{ image.image.url }}" alt="">
+                            <a href="{{ image.image.url }}" class="stretched-link"
+                               data-glightbox=""
+                               data-gallery="banner">
+                            </a>
+                          </li>
+                        {% endfor %}
 
                       </ul>
                     </div>
@@ -99,16 +94,19 @@
                        data-splide='{"rewind":true,"fixedWidth":200,"fixedHeight":120,"isNavigation":true,"gap":20,"focus":"center","pagination":false,"cover":true,"lazyLoad":"sequential","breakpoints":{"600":{"fixedWidth":150,"fixedHeight":80}}}'>
                     <div class="splide__track">
                       <ul class="splide__list">
-                        <li class="splide__slide"><img src="{% static 'dashboard/images/gallery/fut1.jpg' %}" alt="">
+
+                        <li class="splide__slide"><img src="{{ business.image.url }}" alt="">
                         </li>
-                        <li class="splide__slide"><img src="{% static 'dashboard/images/gallery/fut3.jpg' %}" alt="">
-                        </li>
-                        <li class="splide__slide"><img src="{% static 'dashboard/images/gallery/fut4.jpg' %}" alt="">
-                        </li>
-                        <li class="splide__slide"><img src="{% static 'dashboard/images/gallery/fut5.jpg' %}" alt="">
-                        </li>
-                        <li class="splide__slide"><img src="{% static 'dashboard/images/gallery/fut9.jpg' %}" alt="">
-                        </li>
+                        {% for field in fields %}
+                          <li class="splide__slide"><img src="{{ field.image.url }}" alt="">
+                          </li>
+                        {% endfor %}
+
+                        {% for image in images %}
+                          <li class="splide__slide"><img src="{{ image.image.url }}" alt="">
+                          </li>
+                        {% endfor %}
+
                       </ul>
                     </div>
                     <!-- Arrows -->
@@ -124,23 +122,63 @@
               </div>
             </div>
             <div class="card bg-transparent p-0">
+              <div class="card-header bg-transparent pt-4 pt-md-5 pb-3">
+                <h3 class="mb-0">Elige tu turno</h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-xl-12">
+
+                    <form class="bg-mode shadow rounded-3 position-relative p-4 pe-md-5 pb-5 pb-md-4">
+                      <div class="row g-4 align-items-center">
+                        <!-- Location -->
+                        <div class="col-lg-8">
+                          <div class="form-control-border form-control-transparent form-fs-md d-flex">
+                            <!-- Icon -->
+                            <i class="bi bi-geo-alt fs-3 me-2 mt-2"></i>
+                            <!-- Select input -->
+                            <div class="flex-grow-1">
+                              <label class="form-label">Cancha</label>
+                              <select class="form-select" data-search-enabled="true" name="field"
+                                      v-model="selectedField">
+                                <option value="">Selecciona un campo</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-4 d-grid mt-xl-auto">
+                          <button class="btn btn-lg btn-primary mb-0">
+                            Buscar <i class="bi bi-search"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+
+                <div class="mt-3" id="calendar"></div>
+
+              </div>
+
               <div class="card-header bg-transparent border-bottom pt-4 pt-md-5 pb-3">
                 <h3 class="mb-0">Descripción</h3>
               </div>
               <div class="card-body p-0 pt-3">
-                <p class="mb-4">Sistema de césped artificial de última generación indicado para fútbol de alto
-                  rendimiento profesional. Excelente durabilidad y resistencia con mantenimiento casi cero. Máximo
-                  rendimiento deportivo.
-                  Los clubes de fútbol, del mundo entero utilizan una superficie de juego de césped artificial. El
-                  motivo principal para escoger el césped artificial es que el mantenimiento y el tiempo necesario
-                  para preparar la cancha son muy bajas y porque el césped artificial se puede utilizar a diario
-                  comparado con el césped natural.
-
-                  <iframe class="w-100" height="200"
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425878428698!3d40.74076684379132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sGoogle!5e0!3m2!1sen!2sin!4v1586000412513!5m2!1sen!2sin"
-                          style="border:0;" aria-hidden="false" tabindex="0"></iframe>
-
                 <div class="row">
+                  <div class="col-16 col-md-6 col-lg-6">
+                    <p class="mb-4">
+                      {{ business.description }}
+                    </p>
+                  </div>
+                  <div class="col-16 col-md-6 col-lg-6">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15540.639373249087!2d-74.2296709!3d-13.15231555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2spe!4v1709394245948!5m2!1ses!2spe"
+                        width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                  </div>
+                </div>
+                <div class="row mt-3">
                   <div class="col-12 col-md-6 col-sm-6">
                     <h5>Términos y condiciones</h5>
                     <ul class="list-group list-group-borderless mb-4">
@@ -162,84 +200,19 @@
                   <div class="col-12 col-md-6 col-sm-6">
                     <h5>Servicios ofrecidos</h5>
                     <ul class="list-group list-group-borderless mb-0">
-                      <li class="list-group-item h6 fw-light d-flex mb-0">
-                        <i class="fa-solid fa-check-circle text-success me-2"></i>Cochera amplia
-                      </li>
-                      <li class="list-group-item h6 fw-light d-flex mb-0">
-                        <i class="fa-solid fa-check-circle text-success me-2"></i>Servicios higiénicos
-                      </li>
-                      <li class="list-group-item h6 fw-light d-flex mb-0">
-                        <i class="fa-solid fa-check-circle text-success me-2"></i>Bar y zona de invitados
-                      </li>
-                      <li class="list-group-item h6 fw-light d-flex mb-0">
-                        <i class="fa-solid fa-check-circle text-success me-2"></i>Camisetas para equipo
-                      </li>
+                      {% for service in services %}
+                        <li class="list-group-item h6 fw-light d-flex mb-0">
+                          <i class="fa-solid fa-check-circle text-success me-2"></i>{{ service.name }}
+                        </li>
+                      {% empty %}
+                        <p>No ofrece ningún servicio adicional</p>
+                      {% endfor %}
+
                     </ul>
                   </div>
                 </div>
-
               </div>
 
-              <div class="card-header bg-transparent border-bottom pt-4 pt-md-5 pb-3">
-                <h3 class="mb-0">Reservar</h3>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-xl-12">
-                    <!-- Title -->
-                    <h6 class="d-none d-xl-block mb-3">Ver disponibildad</h6>
-
-                    <!-- Booking from START -->
-                    <form class="bg-mode shadow rounded-3 position-relative p-4 pe-md-5 pb-5 pb-md-4">
-                      <div class="row g-4 align-items-center">
-                        <!-- Location -->
-                        <div class="col-lg-4">
-                          <div class="form-control-border form-control-transparent form-fs-md d-flex">
-                            <!-- Icon -->
-                            <i class="bi bi-geo-alt fs-3 me-2 mt-2"></i>
-                            <!-- Select input -->
-                            <div class="flex-grow-1">
-                              <label class="form-label">Cancha</label>
-                              <select class="form-select js-choice" data-search-enabled="true">
-                                <option value="">Selecciona</option>
-                                <option>Cancha 1 - Futbol</option>
-                                <option>Cancha 2 - Volley</option>
-                                <option>Cancha 3 - Futbol 6</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="d-flex">
-                            <i class="bi bi-calendar fs-3 me-2 mt-2"></i>
-                            <div class="form-control-border form-control-transparent form-fs-md">
-                              <label class="form-label">Fecha</label>
-                              <input type="text" class="form-control flatpickr" data-mode="date"
-                                     placeholder="Select date" value="19 Sep ">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="form-control-border form-control-transparent form-fs-md d-flex">
-                            <!-- Icon -->
-                            <i class="bi bi-person fs-3 me-2 mt-2"></i>
-                            <!-- Dropdown input -->
-                            <div class="w-100">
-                              <label class="form-label">Hora</label>
-                              <input type="text" class="form-control flatpickr" value="2:50 PM"
-                                     data-enableTime="true" data-noCalendar="true" placeholder="Select time">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="btn-position-md-middle">
-                        <a class="icon-lg btn btn-round btn-primary mb-0" href="{% url 'booking_payment' %}">
-                          <i class="bi bi-search fa-fw"></i></a>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           <aside class="col-xl-3">
@@ -247,8 +220,7 @@
               <div class="col-md-6 col-xl-12">
                 <div class="card card-body border bg-transparent">
                   <div class="hstack gap-2 mb-1">
-                    <h3 class="card-title mb-0">S/ 70</h3>
-                    <span class="fs-5">/por hora</span>
+                    <h3 class="card-title mb-0">{{ business_price_range }}</h3>
                   </div>
 
                   <div class="d-flex justify-content-between mb-4">
@@ -265,7 +237,7 @@
                   </div>
 
                   <div class="d-grid gap-2">
-                    <a href="{% url 'booking_confirmed' %}" class="btn btn-primary">Reservar ahora</a>
+                    <a href="#" class="btn btn-primary">Reservar ahora</a>
                   </div>
 
                 </div>
@@ -291,8 +263,154 @@
           </aside>
         </div>
       </div>
+      <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="bookingModalLabel">Confirmar Reserva</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p id="modalField">Cancha 1 futbol 5</p>
+              <div id="modalDuration">
+                <!-- Los botones de duración se generan dinámicamente -->
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="continueButton" class="btn btn-success" onclick="goTo()">Continuar - S/</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
   </main>
 
+{% endblock %}
+
+{% block js %}
+  <script src='{% static "frontend/detail_vue.js" %}'></script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+
+  <script>
+      var fieldsData = {{ fields_json|safe }};
+      var businessHours = {{ business_hours_json|safe }};
+      let calendarEl = document.getElementById('calendar');
+      let calendar;
+      let fieldId = 0;
+
+      function adjustDaysOfWeekForBusinessHours(businessHoursData) {
+          return businessHoursData.map(entry => {
+              const adjustedDaysOfWeek = entry.daysOfWeek.map(day => {
+                  return day === 7 ? 0 : day;
+              });
+              return {...entry, daysOfWeek: adjustedDaysOfWeek};
+          });
+      }
+      var adjustedBusinessHours = adjustDaysOfWeekForBusinessHours(businessHours);
+
+      function goTo() {
+          if (fieldId === 0) {
+              alert("Selecciona una cancha")
+              return
+          }
+          window.location.href = '/realizar-pago/' + fieldId + "/";
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+          const fieldSelect = document.querySelector('[name="field"]');
+          fieldSelect.addEventListener('change', function () {
+              console.log("Field id ", this.value);
+              fieldId = this.value;
+              localStorage.setItem('fieldId', this.value);
+              fetchReservations(this.value);
+          });
+
+          const fieldChoices = new Choices(fieldSelect, {searchEnabled: true, itemSelectText: ''});
+          fieldChoices.setChoices(fieldsData.map(location => ({
+              value: location.id,
+              label: location.name + " - " + location.price_range
+          })), 'value', 'label', false);
+          flatpickr(".flatpickr.fecha", {dateFormat: "Y-m-d"});
+          flatpickr(".flatpickr.hora", {enableTime: true, noCalendar: true, dateFormat: "H:i"});
+
+          initializeCalendar();
+      });
+
+      function calculatePrice(minutes) {
+          var pricePerHour = 50;
+          var price = (pricePerHour / 60) * minutes;
+          return price.toFixed(2);
+      }
+
+      function fetchReservations(fieldId) {
+          fetch('/api/bookings/', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({fieldId: fieldId})
+          })
+              .then(response => response.json())
+              .then(data => {
+                  if (calendar) {
+                      calendar.removeAllEvents(); // Remove all existing events
+                      calendar.addEventSource(data); // Add new events
+                  }
+              })
+              .catch(error => console.error('Error al cargar las reservas:', error));
+      }
+
+      function initializeCalendar() {
+          calendar = new FullCalendar.Calendar(calendarEl, {
+              initialView: 'timeGridWeek',
+              locale: 'es',
+              timeZone: 'America/Lima',
+              firstDay: 1,
+              headerToolbar: {
+                  left: 'prev,next',
+                  center: 'title',
+                  right: 'timeGridWeek'
+              },
+              buttonText: {
+                  week: 'Semanal'
+              },
+              events: [],
+              slotDuration: '00:30:00',
+              slotLabelInterval: '01:00',
+              selectable: true,
+              selectHelper: true,
+              selectOverlap: false,
+              select: function (info) {
+                  localStorage.setItem('startTime', info.startStr);
+                  localStorage.setItem('endTime', info.endStr);
+
+                  var duration = (info.end - info.start) / (1000 * 60);
+                  var minutes = Math.round(duration);
+
+                  document.getElementById('modalField').textContent = "Cancha 1 futbol 5";
+                  var modalDuration = document.getElementById('modalDuration');
+                  modalDuration.innerHTML = `
+                      <button class="btn btn-outline-primary">${minutes} min</button>
+                  `;
+
+                  var continueButton = document.getElementById('continueButton');
+                  continueButton.textContent = `Continuar - S/${calculatePrice(minutes)}`;
+
+                  var bookingModal = new bootstrap.Modal(document.getElementById('bookingModal'));
+                  bookingModal.show();
+              },
+              slotLabelFormat: {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: false
+              },
+              businessHours: adjustedBusinessHours,
+              selectConstraint: "businessHours",
+              allDaySlot: false,
+          });
+
+          calendar.render();
+      }
+  </script>
 {% endblock %}

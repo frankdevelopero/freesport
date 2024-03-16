@@ -5,30 +5,24 @@
 {% endblock %}
 
 {% block content %}
-
   <main>
-
-    <!-- =======================
-    Main content START -->
     <section class="pt-4">
       <div class="container">
         <div class="row">
           <div class="col-md-10 col-xl-8 mx-auto">
 
             <div class="card shadow">
-              <!-- Image -->
-              <img src="{% static 'dashboard/images/gallery/fut9.jpg' %}" class="rounded-top" alt="">
+              <div class="image-crop-container"
+                   style="width: 100%; height: 256px; overflow: hidden; border-radius: .25rem;">
+                <img src="{{ booking.business.image.url }}" alt="" style="width: 100%; object-fit: cover;">
+              </div>
 
-              <!-- Card body -->
               <div class="card-body text-center p-4">
-                <!-- Title -->
                 <h1 class="card-title fs-3">🎊 ¡ Felicitaciones ! 🎊</h1>
                 <p class="lead mb-3">Su reserva ha sido confirmada</p>
 
-                <!-- Second title -->
-                <h5 class="text-primary mb-4">Grass Sintético La Revancha</h5>
+                <h5 class="text-primary mb-4">{{ booking.business.title }}</h5>
 
-                <!-- List -->
                 <div class="row justify-content-between text-start mb-4">
                   <div class="col-lg-5">
                     <ul class="list-group list-group-borderless">
@@ -38,7 +32,7 @@
                       </li>
                       <li class="list-group-item d-sm-flex justify-content-between align-items-center">
                         <span class="mb-0"><i class="bi bi-person fa-fw me-2"></i>Reservado por:</span>
-                        <span class="h6 fw-normal mb-0">Frank Lopez</span>
+                        <span class="h6 fw-normal mb-0">{{ booking.user.get_full_name }}</span>
                       </li>
                       <li class="list-group-item d-sm-flex justify-content-between align-items-center">
                         <span class="mb-0"><i class="bi bi-wallet2 fa-fw me-2"></i>Método de pago:</span>
@@ -46,7 +40,7 @@
                       </li>
                       <li class="list-group-item d-sm-flex justify-content-between align-items-center">
                         <span class="mb-0"><i class="bi bi-currency-dollar fa-fw me-2"></i>Total pagado:</span>
-                        <span class="h6 fw-normal mb-0">S/ 70.00</span>
+                        <span class="h6 fw-normal mb-0">S/ {{ booking.price|floatformat:2}}</span>
                       </li>
                     </ul>
                   </div>

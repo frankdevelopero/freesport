@@ -99,13 +99,13 @@ SIMPLE_JWT = {
 
 LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Lima'
 
 USE_I18N = True
 USE_L10N = True
-
 USE_TZ = True
 
+MEDIA_URL = '/media/'
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 

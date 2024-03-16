@@ -74,7 +74,7 @@
   </script>
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="{% static 'dashboard/images/favicon.ico' %}">
+  <link rel="shortcut icon" href="{% static 'frontend/img/logo.ico' %}">
 
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -114,8 +114,8 @@
       <!-- Widget -->
       <div class="col-md-4">
         <div class="text-center text-md-start mb-3 mb-md-0">
-          <a href="{% url 'agent_dashboard' %}"> <img class="h-30px"
-                                                      src="{% static 'dashboard/images/logo-light.svg' %}" alt="logo">
+          <a href="{% url 'agent_bookings' %}">
+            <img class="h-30px" src="{% static 'dashboard/images/logo-light.svg' %}" alt="logo">
           </a>
         </div>
       </div>
@@ -151,8 +151,13 @@ Footer END -->
 <!-- Vendors -->
 <script src="{% static 'dashboard/vendor/apexcharts/js/apexcharts.min.js' %}"></script>
 <script src="{% static 'dashboard/vendor/choices/js/choices.min.js' %}"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-<!-- ThemeFunctions -->
+{% block js %}
+
+
+{% endblock %}
 <script src="{% static 'dashboard/js/functions.js' %}"></script>
 
 </body>

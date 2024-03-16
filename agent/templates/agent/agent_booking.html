@@ -11,105 +11,236 @@
       <!-- Title START -->
       <div class="row">
         <div class="col-12">
-          <h1 class="fs-4 mb-0"><i class="bi bi-bookmark-heart fa-fw me-1"></i>Mis reservas</h1>
+          <h1 class="fs-4 mb-0"><i class="bi bi-bookmark-heart fa-fw me-1"></i>Mis reservas -<small
+              class="ms-1"><a  href="{% url 'detail' business.id %}" target="_blank">{{ business.title }}</a></small></h1>
         </div>
       </div>
-      <!-- Title END -->
-
-      <!-- Booking table START -->
       <div class="row">
         <div class="col-12">
-          <div class="card border">
-            <!-- Card header START -->
-            <div class="card-header border-bottom">
-              <h5 class="card-header-title">Reservas<span
-                  class="badge bg-primary bg-opacity-10 text-primary ms-2">20</span>
-              </h5>
-            </div>
-            <!-- Card header END -->
-
-            <!-- Card body START -->
-            <div class="card-body">
-              <!-- Search and select START -->
-              <div class="row g-3 align-items-center justify-content-between mb-3">
-                <!-- Search -->
-                <div class="col-md-8">
-                  <form class="rounded position-relative">
-                    <input class="form-control pe-5" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn border-0 px-3 py-0 position-absolute top-50 end-0 translate-middle-y"
-                            type="submit"><i class="fas fa-search fs-6"></i></button>
-                  </form>
-                </div>
-
-                <!-- Select option -->
-                <div class="col-md-3">
-                  <!-- Short by filter -->
-                  <form>
-                    <select class="form-select js-choice" aria-label=".form-select-sm">
-                      <option value="">Por cancha</option>
-                      <option>Futbol 5</option>
-                      <option>Volley 1</option>
-                      <option>Futbol 6</option>
+          <form class="bg-mode shadow rounded-3 position-relative p-4 pe-md-5 pb-5 pb-md-4">
+            <div class="row g-4 align-items-center">
+              <!-- Location -->
+              <div class="col-lg-8">
+                <div class="form-control-border form-control-transparent form-fs-md d-flex">
+                  <!-- Icon -->
+                  <i class="bi bi-geo-alt fs-3 me-2 mt-2"></i>
+                  <!-- Select input -->
+                  <div class="flex-grow-1">
+                    <label class="form-label">Selecciona una cancha</label>
+                    <select class="form-select" data-search-enabled="true" name="field">
+                      <option value="">Selecciona </option>
                     </select>
-                  </form>
+                  </div>
                 </div>
               </div>
-              <div class="table-responsive border-0">
-                <table class="table align-middle p-4 mb-0 table-hover table-shrink">
-                  <thead class="table-light">
-                  <tr>
-                    <th scope="col" class="border-0 rounded-start">#</th>
-                    <th scope="col" class="border-0">Cliente</th>
-                    <th scope="col" class="border-0">Cancha</th>
-                    <th scope="col" class="border-0">Fecha</th>
-                    <th scope="col" class="border-0">Estado</th>
-                    <th scope="col" class="border-0">Pago</th>
-                    <th scope="col" class="border-0 rounded-end">Acciones</th>
-                  </tr>
-                  </thead>
-
-                  <tbody class="border-top-0">
-
-                  <tr>
-                    <td><h6 class="mb-0">BK004</h6></td>
-                    <td><h6 class="mb-0"><a href="#">Frank Lopez</a></h6></td>
-                    <td> Cancha 1 - futbol</td>
-                    <td><h6 class="mb-0 fw-light">01/02/2023 | 7pm-9pm</h6></td>
-                    <td>
-                      <div class="badge text-bg-success">Confirmado</div>
-                    </td>
-                    <td>
-                      <div class="badge bg-success bg-opacity-10 text-success">Pagado</div>
-                    </td>
-                    <td><a href="#" class="btn btn-sm btn-light mb-0">Detalles</a></td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
             </div>
-
-            <div class="card-footer pt-0">
-              <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
-                <p class="mb-sm-0 text-center text-sm-start">Mostrando 1 al 8 de 20 registros</p>
-                <nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
-                  <ul class="pagination pagination-sm pagination-primary-soft mb-0">
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" tabindex="-1">Ante</a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item "><a class="page-link" href="#">2</a></li>
-                    <li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-                    <li class="page-item"><a class="page-link" href="#">15</a></li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">Sigt</a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
-          </div>
+            <div class="mt-3" id="calendar"></div>
+          </form>
         </div>
       </div>
     </div>
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <form id="bookingForm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="bookingModalLabel">Confirmar Reserva</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p id="modalField">Cancha 1 futbol 5</p>
+              <p id="modalTime">Desde 12pm hasta 24pm</p>
+              <div id="modalDuration">
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <label for="validationDefault01" class="form-label">Nombres</label>
+                  <input type="text" class="form-control" placeholder="Nombre de la persona" name="firstName" required>
+                </div>
+                <div class="col-md-6 col-12">
+                  <label for="validationDefault02" class="form-label">Celular</label>
+                  <input type="text" class="form-control" id="Phone" placeholder="Número de celular" name="phone"
+                         required>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" id="continueButton" class="btn btn-success">Continuar
+                - S/
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </section>
+{% endblock %}
+
+
+{% block js %}
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+
+  <script>
+      var fieldsData = {{ fields_json|safe }};
+      let calendarEl = document.getElementById('calendar');
+      let calendar;
+      let fieldId = 0;
+      let fieldName = "";
+
+      function getFieldNameById(fieldId) {
+          const field = fieldsData.find(field => field.id === parseInt(fieldId));
+          return field ? field.name : 'Primero selecciona una cancha';
+      }
+
+
+      document.addEventListener('DOMContentLoaded', function () {
+          const fieldSelect = document.querySelector('[name="field"]');
+          fieldSelect.addEventListener('change', function () {
+              console.log("Field id ", this.value);
+              fieldId = this.value;
+              localStorage.setItem('fieldId', this.value);
+              fetchReservations(this.value);
+          });
+
+          const fieldChoices = new Choices(fieldSelect, {searchEnabled: true, itemSelectText: ''});
+          fieldChoices.setChoices(fieldsData.map(location => ({
+              value: location.id,
+              label: location.name
+          })), 'value', 'label', false);
+          initializeCalendar();
+
+          const bookingForm = document.getElementById('bookingForm');
+          bookingForm.addEventListener('submit', function (event) {
+              event.preventDefault();
+              fetchCreateBooking();
+          });
+      });
+
+      function calculatePrice(minutes) {
+          var pricePerHour = 50;
+          var price = (pricePerHour / 60) * minutes;
+          return price.toFixed(2);
+      }
+
+      function fetchReservations(fieldId) {
+          fetch('/api/bookings/', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({fieldId: fieldId})
+          })
+              .then(response => response.json())
+              .then(data => {
+                  if (calendar) {
+                      calendar.removeAllEvents();
+                      calendar.addEventSource(data);
+                  }
+              })
+              .catch(error => console.error('Error al cargar las reservas:', error));
+      }
+
+      function fetchCreateBooking() {
+          const firstName = document.querySelector("[name='firstName']").value;
+          const phone = document.querySelector("[name='phone']").value;
+          const startTime = localStorage.getItem('startTime');
+          const endTime = localStorage.getItem('endTime');
+
+          if (!firstName || !phone || !startTime || !endTime) {
+              alert("Por favor, completa todos los campos para continuar.");
+              return;
+          }
+
+          fetch('/api/create-booking/', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                  fieldId: fieldId,
+                  firstName: firstName,
+                  phone: phone,
+                  startTime: startTime,
+                  endTime: endTime
+              })
+          })
+              .then(response => response.json())
+              .then(data => {
+                  if (data.bookingId) {
+                      var bookingModal = bootstrap.Modal.getInstance(document.getElementById('bookingModal'));
+                      bookingModal.hide();
+                      fetchReservations(fieldId);
+                  }
+              })
+              .catch(error => {
+                  console.error('Error al crear la reserva:', error);
+                  alert("Ocurrió un error al crear la reserva.");
+              });
+      }
+
+
+      function initializeCalendar() {
+          calendar = new FullCalendar.Calendar(calendarEl, {
+              initialView: 'timeGridWeek',
+              locale: 'es',
+              timeZone: 'America/Lima',
+              firstDay: 1,
+              headerToolbar: {
+                  left: 'prev,next',
+                  center: 'title',
+                  right: 'timeGridWeek'
+              },
+              buttonText: {
+                  week: 'Semanal'
+              },
+              events: [],
+              slotDuration: '00:30:00',
+              slotLabelInterval: '01:00',
+              selectable: true,
+              selectHelper: true,
+              selectOverlap: false,
+              select: function (info) {
+                  localStorage.setItem('startTime', info.startStr);
+                  localStorage.setItem('endTime', info.endStr);
+
+                  var duration = (info.end - info.start) / (1000 * 60);
+                  var minutes = Math.round(duration);
+                  document.getElementById('modalField').textContent = getFieldNameById(fieldId);
+                  const startTime = new Date(info.startStr);
+                  const endTime = new Date(info.endStr);
+                  const startTimeFormatted = startTime.toLocaleTimeString('es-PE', {
+                      hour: 'numeric',
+                      minute: '2-digit',
+                      hour12: true
+                  });
+
+                  const endTimeFormatted = endTime.toLocaleTimeString('es-PE', {
+                      hour: 'numeric',
+                      minute: '2-digit',
+                      hour12: true
+                  });
+
+                  document.getElementById('modalTime').textContent = `Desde ${startTimeFormatted} hasta ${endTimeFormatted}`;
+                  var modalDuration = document.getElementById('modalDuration');
+                  modalDuration.innerHTML = `
+                      <button class="btn btn-outline-secondary">${minutes} min</button>
+                  `;
+
+                  var continueButton = document.getElementById('continueButton');
+                  continueButton.textContent = `Reservar - S/${calculatePrice(minutes)}`;
+
+                  var bookingModal = new bootstrap.Modal(document.getElementById('bookingModal'));
+                  bookingModal.show();
+              },
+              slotLabelFormat: {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: false
+              },
+              allDaySlot: false,
+          });
+
+          calendar.render();
+      }
+  </script>
 {% endblock %}

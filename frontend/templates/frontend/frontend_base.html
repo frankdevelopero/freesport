@@ -73,7 +73,7 @@
 
   </script>
 
-  <link rel="shortcut icon" href="{% static 'dashboard/images/favicon.ico' %}">
+  <link rel="shortcut icon" href="{% static 'frontend/img/logo.ico' %}">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -107,8 +107,8 @@
     <div class="container">
       <!-- Logo START -->
       <a class="navbar-brand" href="{% url 'index' %}">
-        <img class="light-mode-item navbar-brand-item" src="{% static 'dashboard/images/logo.svg' %}" alt="logo">
-        <img class="dark-mode-item navbar-brand-item" src="{% static 'dashboard/images/logo-light.svg' %}" alt="logo">
+        <img class="light-mode-item navbar-brand-item" src="{% static 'frontend/img/logo.png' %}" alt="logo">
+        <img class="dark-mode-item navbar-brand-item" src="{% static 'frontend/img/logo.png' %}" alt="logo">
       </a>
       <!-- Logo END -->
 
@@ -124,69 +124,13 @@
         <span class="d-none d-sm-inline-block small">Menu</span>
       </button>
 
-      <!-- Responsive category toggler -->
-      <button class="navbar-toggler ms-sm-auto mx-3 me-md-0 p-0 p-sm-2" type="button" data-bs-toggle="collapse"
-              data-bs-target="#navbarCategoryCollapse" aria-controls="navbarCategoryCollapse" aria-expanded="false"
-              aria-label="Toggle navigation">
-        <i class="bi bi-grid-3x3-gap-fill fa-fw"></i><span class="d-none d-sm-inline-block small">Category</span>
-      </button>
 
       <!-- Main navbar START -->
       <div class="navbar-collapse collapse" id="navbarCollapse">
         <ul class="navbar-nav navbar-nav-scroll me-auto">
 
-          <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'search' %}">Buscar cancha</a></li>
 
-          <!-- Nav item Pages -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true"
-               aria-expanded="false">Deportes</a>
-            <ul class="dropdown-menu" aria-labelledby="pagesMenu">
-
-              <li><a class="dropdown-item" href="about.html">About</a></li>
-              <li><a class="dropdown-item" href="contact.html">Contact</a></li>
-              <li><a class="dropdown-item" href="contact-2.html">Contact 2</a></li>
-              <li><a class="dropdown-item" href="team.html">Our Team</a></li>
-
-            </ul>
-          </li>
-
-          <!-- Nav item Account -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="accounntMenu" data-bs-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">Ciudades</a>
-            <ul class="dropdown-menu" aria-labelledby="accounntMenu">
-              <!-- Dropdown submenu -->
-              <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-toggle" href="#">User Profile</a>
-                <ul class="dropdown-menu" data-bs-popper="none">
-                  <li><a class="dropdown-item" href="account-profile.html">My Profile</a></li>
-                  <li><a class="dropdown-item" href="account-bookings.html">My Bookings</a></li>
-                  <li><a class="dropdown-item" href="account-travelers.html">Travelers</a></li>
-                  <li><a class="dropdown-item" href="account-payment-details.html">Payment Details</a></li>
-                  <li><a class="dropdown-item" href="account-wishlist.html">Wishlist</a></li>
-                  <li><a class="dropdown-item" href="account-settings.html">Settings</a></li>
-                  <li><a class="dropdown-item" href="account-delete.html">Delete Profile</a></li>
-                </ul>
-              </li>
-
-              <!-- Dropdown submenu -->
-              <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-toggle" href="#">Agent Dashboard</a>
-                <ul class="dropdown-menu" data-bs-popper="none">
-                  <li><a class="dropdown-item" href="agent-dashboard.html">Dashboard</a></li>
-                  <li><a class="dropdown-item" href="agent-listings.html">Listings</a></li>
-                  <li><a class="dropdown-item" href="agent-bookings.html">Bookings</a></li>
-                  <li><a class="dropdown-item" href="agent-activities.html">Activities</a></li>
-                  <li><a class="dropdown-item" href="agent-earnings.html">Earnings</a></li>
-                  <li><a class="dropdown-item" href="agent-reviews.html">Reviews</a></li>
-                  <li><a class="dropdown-item" href="agent-settings.html">Settings</a></li>
-                </ul>
-              </li>
-
-              <li><a class="dropdown-item" href="admin-dashboard.html">Master Admin</a></li>
-            </ul>
-          </li>
 
         </ul>
       </div>
@@ -241,12 +185,30 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="{% url 'user-account' %}"><i class="bi bi-person fa-fw me-2"></i>Mi
-              cuenta</a></li>
-            <li><a class="dropdown-item" href="{% url 'user-account-booking' %}"><i class="bi bi-book fa-fw me-2"></i>Mis
-              reservas</a></li>
-            <li><a class="dropdown-item" href="{% url 'user-account-change-password' %}"><i
-                class="bi bi-eye fa-fw me-2"></i>Cambiar contraseña</a></li>
+
+            {% if request.user.role == 2 %}
+
+              <li>
+                <a class="dropdown-item" href="{% url 'agent_bookings' %}"><i class="bi bi-book fa-fw me-2"></i>
+                  Ingresar a calendario
+                </a>
+              </li>
+            {% else %}
+              <li>
+                <a class="dropdown-item" href="{% url 'user-account' %}"><i class="bi bi-person fa-fw me-2"></i>Mi
+                  cuenta</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'user-account-booking' %}"><i class="bi bi-book fa-fw me-2"></i>Mis
+                  reservas</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'user-account-change-password' %}"><i
+                    class="bi bi-eye fa-fw me-2"></i>Cambiar contraseña</a>
+              </li>
+            {% endif %}
+
+
             {% if request.user.is_authenticated %}
               <li><a class="dropdown-item bg-danger-soft-hover" href="{% url 'logout' %}"><i
                   class="bi bi-power fa-fw me-2"></i>Cerrar
@@ -296,11 +258,8 @@
                 </button>
               </div>
             </li>
-            <!-- Dark mode options END-->
           </ul>
-          <!-- Profile dropdown END -->
         </li>
-        <!-- Profile dropdown END -->
       </ul>
 
     </div>
@@ -322,13 +281,16 @@
 <script src="{% static 'dashboard/vendor/flatpickr/js/flatpickr.min.js' %}"></script>
 <script src="{% static 'dashboard/vendor/sticky-js/sticky.min.js' %}"></script>
 <script src="{% static 'dashboard/vendor/nouislider/nouislider.min.js' %}"></script>
-<script src="{% static 'dashboard/js/functions.js' %}"></script>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
 {% block js %}
 
 
 {% endblock %}
+<script src="{% static 'dashboard/js/functions.js' %}"></script>
+
 
 </body>
 </html>

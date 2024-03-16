@@ -37,22 +37,28 @@
                             Una vez hecho he pago con Yape por favor ingresa el número de celular con el que ha pagodo y
                             adjunta el comprobante de pago.
                           </div>
-                          <form class="row g-3">
+                          <form class="row g-3" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
                             <div class="col-6">
                               <label class="form-label"><span class="h6 fw-normal">Número de celular</span></label>
                               <div class="position-relative">
                                 <input type="text" class="form-control" maxlength="14"
-                                       placeholder="Ingresa el número de celular">
+                                       placeholder="Ingresa el número de celular" name="phone">
+                                <input type="hidden" name="payment_method" value="1">
+                                <input type="hidden" name="start_time">
+                                <input type="hidden" name="end_time">
+                                <input type="hidden" name="field_id" value="{{ field.id }}">
                               </div>
                             </div>
                             <div class="col-md-6">
                               <label class="form-label"><span class="h6 fw-normal">Subir comprobante</span></label>
-                              <input type="file" class="form-control" maxlength="3" placeholder="xxx">
+                              <input type="file" class="form-control" maxlength="3" placeholder="xxx" name="voucher">
                             </div>
                             <div class="col-12">
                               <div class="d-sm-flex justify-content-sm-between align-items-center">
-                                <h4>S/ 144.00 <span class="small fs-6"> completo</span></h4>
-                                <a href="{% url 'booking_confirmed' %}" class="btn btn-primary mb-0">Pagar ahora</a>
+                                <h4 class="totalAPagarYape" id="totalAPagarYape">
+                                </h4>
+                                <button type="submit" class="btn btn-primary mb-0">Pagar ahora</button>
                               </div>
                             </div>
                           </form>
@@ -92,78 +98,12 @@
                             </div>
                             <div class="col-12">
                               <div class="d-sm-flex justify-content-sm-between align-items-center">
-                                <h4>S/ 144.00 <span class="small fs-6"> completo</span></h4>
+                                <h4 class="totalAPagarYape" id="totalAPagarPlin">
+                                </h4>
                                 <button class="btn btn-primary mb-0">Pagar ahora</button>
                               </div>
                             </div>
                           </form>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="accordion-item mb-3">
-                      <h6 class="accordion-header" id="heading-2">
-                        <button class="accordion-button collapsed rounded" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
-                          <i class="bi bi-globe2 text-primary me-2"></i> <span
-                            class="me-5">Pagar con transferencia</span>
-                        </button>
-                      </h6>
-                      <div id="collapse-2" class="accordion-collapse collapse" aria-labelledby="heading-2"
-                           data-bs-parent="#accordioncircle">
-                        <!-- Accordion body -->
-                        <div class="accordion-body">
-
-                          <!-- Form START -->
-                          <form class="row g-3 mt-1">
-
-                            <!-- Popular bank -->
-                            <ul class="list-inline mb-0">
-
-                              <li class="list-inline-item"><h6 class="mb-0">Popular Bank:</h6></li>
-                              <!-- Rent -->
-                              <li class="list-inline-item">
-                                <input type="radio" class="btn-check" name="options" id="option1">
-                                <label class="btn btn-light btn-primary-soft-check" for="option1">
-                                  <img src="assets/images/element/13.svg" class="h-20px me-2" alt="">Bank of America
-                                </label>
-                              </li>
-                              <!-- Sale -->
-                              <li class="list-inline-item">
-                                <input type="radio" class="btn-check" name="options" id="option2">
-                                <label class="btn btn-light btn-primary-soft-check" for="option2">
-                                  <img src="assets/images/element/15.svg" class="h-20px me-2" alt="">Bank of Japan
-                                </label>
-                              </li>
-                              <!-- Buy -->
-                              <li class="list-inline-item">
-                                <input type="radio" class="btn-check" name="options" id="option3">
-                                <label class="btn btn-light btn-primary-soft-check" for="option3">
-                                  <img src="assets/images/element/14.svg" class="h-20px me-2" alt="">VIVIV Bank
-                                </label>
-                              </li>
-                            </ul>
-
-                            <p class="mb-1">In order to complete your transaction, we will transfer you over to Booking
-                              secure servers.</p>
-                            <p class="my-0">Select your bank from the drop-down list and click proceed to continue with
-                              your payment.</p>
-                            <!-- Select bank -->
-                            <div class="col-md-6">
-                              <select class="form-select form-select-sm js-choice border-0">
-                                <option value="">Please choose one</option>
-                                <option>Bank of America</option>
-                                <option>Bank of India</option>
-                                <option>Bank of London</option>
-                              </select>
-                            </div>
-
-                            <!-- Button -->
-                            <div class="d-grid">
-                              <button class="btn btn-success mb-0">Pay $1800</button>
-                            </div>
-
-                          </form>
-                          <!-- Form END -->
                         </div>
                       </div>
                     </div>
@@ -192,20 +132,21 @@
                     <ul class="list-group list-group-borderless">
                       <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span class="h6 fw-light mb-0">Fecha</span>
-                        <span class="fs-5">01/02/2023</span>
+                        <span class="fs-5 fecha">01/02/2023</span>
                       </li>
                       <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span class="h6 fw-light mb-0">Hora</span>
-                        <span class="fs-5 text-success">7pm - 9pm</span>
+                        <span class="fs-5 text-success hora">7pm - 9pm</span>
                       </li>
                       <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="h6 fw-light mb-0">Precio por hora</span>
-                        <span class="fs-5">S/ 70.00</span>
+                        <span class="h6 fw-light mb-0">Precio a pagar</span>
+                        <span class="fs-5" id="precioAPagar">S/ 00.00</span>
                       </li>
                       <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span class="h6 fw-light mb-0">Comisiones</span>
-                        <span class="fs-5">S/ 2.00</span>
+                        <span class="fs-5" id="comisiones">S/ 00.00</span>
                       </li>
+
                     </ul>
                   </div>
 
@@ -213,7 +154,7 @@
                   <div class="card-footer border-top">
                     <div class="d-flex justify-content-between align-items-center">
                       <span class="h5 mb-0">Total a pagar</span>
-                      <span class="h5 mb-0">S/ 144.00</span>
+                      <span class="h5 mb-0" id="totalAPagar">S/ 00.00</span>
                     </div>
                   </div>
                 </div>
@@ -241,4 +182,73 @@
       </div>
     </section>
   </main>
+{% endblock %}
+
+{% block js %}
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          // Recuperar los valores desde localStorage
+          const startTime = localStorage.getItem('startTime');
+          const endTime = localStorage.getItem('endTime');
+          const startDate = new Date(startTime);
+          const endDate = new Date(endTime);
+
+          const options = {year: 'numeric', month: '2-digit', day: '2-digit'};
+          const fecha = startDate.toLocaleDateString('es-PE', options);
+
+          const horaInicio = startDate.toLocaleTimeString('es-PE', {hour: '2-digit', minute: '2-digit'});
+          const horaFin = endDate.toLocaleTimeString('es-PE', {hour: '2-digit', minute: '2-digit'});
+
+          document.querySelector('.card-body .list-group .fecha').textContent = fecha;
+          document.querySelector('.card-body .list-group .hora').textContent = `${horaInicio} - ${horaFin}`;
+
+          document.querySelector('input[name="start_time"]').value = startTime;
+          document.querySelector('input[name="end_time"]').value = endTime;
+
+          fetchBookingData()
+
+      });
+
+
+      function fetchBookingData() {
+          const startTime = localStorage.getItem('startTime');
+          const endTime = localStorage.getItem('endTime');
+          const fieldId = localStorage.getItem('fieldId');
+
+          if (!startTime || !endTime) {
+              alert("Por favor, completa todos los campos para continuar.");
+              return;
+          }
+
+          fetch('/api/data-booking/', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                  fieldId: fieldId,
+                  startTime: startTime,
+                  endTime: endTime
+              })
+          }).then(response => {
+              if (!response.ok) {
+                  throw new Error('Respuesta de red no fue ok');
+              }
+              return response.json();
+          },).then(data => {
+              const priceToPay = parseFloat(data.priceToPay);
+              const commission = parseFloat(data.commission);
+              const totalToPay = parseFloat(data.totalToPay);
+
+              document.getElementById('precioAPagar').textContent = `S/ ${priceToPay.toFixed(2)}`;
+              document.getElementById('comisiones').textContent = `S/ ${commission.toFixed(2)}`;
+              document.getElementById('totalAPagar').textContent = `S/ ${totalToPay.toFixed(2)}`;
+          },)
+              .catch(error => {
+                  console.error('Error al crear la reserva:', error);
+                  alert("Ocurrió un error al crear la reserva.");
+              },);
+      }
+
+  </script>
 {% endblock %}

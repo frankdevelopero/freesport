@@ -9,8 +9,12 @@ from users.models import User
 
 
 class Booking(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("Usuario"))
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("Usuario"), null=True, blank=True)
+    user_fullname = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Nombre de la persona"))
+    user_phone = models.CharField(max_length=24, null=True, blank=True, verbose_name=_("Número de celular"))
     business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name=_("Negocio"))
+    voucher = models.ImageField(upload_to='payments', verbose_name=_("Comprobante"), null=True, blank=True)
+    phone = models.TextField(max_length=18, null=True, blank=True)
     field = models.ForeignKey(Field, on_delete=models.CASCADE, verbose_name=_("Cancha"))
     start_time = models.DateTimeField(verbose_name=_("Hora de inicio"))
     end_time = models.DateTimeField(verbose_name=_("Hora de fin"))

@@ -4,8 +4,8 @@
     <div class="container">
       <!-- Logo START -->
       <a class="navbar-brand" href="{% url 'index' %}">
-        <img class="light-mode-item navbar-brand-item" src="{% static 'dashboard/images/logo.svg' %}" alt="logo">
-        <img class="dark-mode-item navbar-brand-item" src="{% static 'dashboard/images/logo-light.svg' %}" alt="logo">
+        <img class="light-mode-item navbar-brand-item" src="{% static 'frontend/img/logo.png' %}" alt="logo">
+        <img class="dark-mode-item navbar-brand-item" src="{% static 'frontend/img/logo.png' %}" alt="logo">
       </a>
       <!-- Logo END -->
 
@@ -20,21 +20,15 @@
 				</span>
       </button>
 
-      <!-- Main navbar START -->
       <div class="navbar-collapse collapse" id="navbarCollapse">
         <ul class="navbar-nav navbar-nav-scroll">
 
-          <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Reservar</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'search' %}">Reservar</a></li>
 
           <li class="nav-item"><a class="nav-link" href="#">Contáctenos</a></li>
         </ul>
       </div>
-      <!-- Main navbar END -->
-
-      <!-- Profile and Notification START -->
       <ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
-
-
 
       </ul>
     </div>

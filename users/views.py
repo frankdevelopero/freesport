@@ -4,6 +4,8 @@ from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.contrib.auth import logout, authenticate, login as django_login, update_session_auth_hash, login
+
+from booking.models import Booking
 from users.forms import LoginForm
 
 
@@ -110,6 +112,13 @@ class UserAccountChangePasswordView(View):
 class UserAccountBookingView(View):
     @method_decorator(login_required())
     def get(self, request):
+        confirmed_bookings = Booking.objects.filter(user=request.user, status__in=[1, 2]).order_by('-created_at')
+        cancelled_bookings = Booking.objects.filter(user=request.user, status=3).order_by('-created_at')
+        completed_bookings = Booking.objects.filter(user=request.user, status=4).order_by('-created_at')
+
         context = {
+            'confirmed_bookings': confirmed_bookings,
+            'cancelled_bookings': cancelled_bookings,
+            'completed_bookings': completed_bookings,
         }
         return render(request, 'users/user_account_bookings.html', context)

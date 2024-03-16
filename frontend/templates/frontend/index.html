@@ -28,19 +28,18 @@
         <div class="row mt-n7">
           <div class="col-11 mx-auto">
             <!-- Booking from START -->
-            <form class="bg-mode shadow rounded-3 p-4">
+            <form class="bg-mode shadow rounded-3 p-4" method="get" action="/buscar">
               <div class="row g-4 align-items-center">
 
                 <div class="col-xl-10">
                   <div class="row g-4">
-                    <!-- Location -->
                     <div class="col-md-6 col-lg-4">
                       <label class="h6 fw-normal mb-0"><i class="bi bi-geo-alt text-primary me-1"></i>Ciudad</label>
                       <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
-                        <select class="form-select js-choice" data-search-enabled="true">
+                        <select class="form-select js-choice" data-search-enabled="true" name="district">
                           <option value="">Selecciona</option>
-                          {% for distrito, provincia in locations %}
-                            <option value="{{ distrito.id }}">{{ distrito }}, {{ provincia }}</option>
+                          {% for location in locations %}
+                            <option value="{{ location.id }}">{{ location.name }}</option>
                           {% endfor %}
                         </select>
                       </div>
@@ -54,10 +53,10 @@
                       </label>
                       <!-- Input field -->
                       <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
-                        <select class="form-select js-choice" data-search-enabled="true">
+                        <select class="form-select js-choice" data-search-enabled="true" name="sport">
                           <option value="">Selecciona</option>
                           {% for sport in sports %}
-                            <option value="{{ sport.id }}">{{ sport }}</option>
+                            <option value="{{ sport.id }}">{{ sport.name }}</option>
                           {% endfor %}
                         </select>
 
@@ -70,7 +69,7 @@
                       <!-- Input field -->
                       <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
                         <input type="text" class="form-control flatpickr py-2" data-date-format="d M Y"
-                               placeholder="Selecciona una fecha">
+                               placeholder="Selecciona una fecha" name="date">
                       </div>
                     </div>
 
@@ -80,8 +79,8 @@
                 <!-- Button -->
                 <div class="col-xl-2">
                   <div class="d-grid">
-                    <a href="{% url 'search' %}" class="btn btn-lg btn-primary mb-0">Buscar <i
-                        class="bi bi-arrow-right"></i></a>
+                    <button type="submit"  class="btn btn-lg btn-primary mb-0">Buscar <i
+                        class="bi bi-arrow-right"></i></button>
                   </div>
                 </div>
               </div>
@@ -92,6 +91,80 @@
       </div>
     </section>
 
+    <section class="pt-0 pt-md-5">
+      <div class="container">
+        <!-- Title -->
+        <div class="row mb-4">
+          <div class="col-12 text-center">
+            <h2 class="mb-0">Canchas populares</h2>
+          </div>
+        </div>
 
+        <div class="row g-4">
+          {% for item in business %}
+            <div class="col-sm-6 col-xl-3">
+              <!-- Card START -->
+              <div class="card card-img-scale overflow-hidden bg-transparent">
+                <div class="card-img-scale-wrapper rounded-3">
+                  <img src="{{ item.image.url }}" class="card-img" alt="">
+                </div>
+                <div class="card-body px-2">
+                  <h5 class="card-title">
+                    <a href="{% url 'detail' item.id %}" class="stretched-link">{{ item.title }}</a>
+                  </h5>
+                </div>
+              </div>
+            </div>
+          {% empty %}
+            <p class="mt-3">Todavía no tenemos canchas agregados</p>
+          {% endfor %}
+
+        </div>
+      </div>
+    </section>
+
+    <section class="pt-0 pt-md-5">
+      <div class="container">
+        <div class="row mb-3 mb-sm-4">
+          <div class="col-12 text-center">
+            <h2 class="mb-0">Top deportes</h2>
+          </div>
+        </div>
+
+        <div class="row g-4 g-xl-5">
+
+          {% for sports_item in sports_items %}
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+              <div class="row g-2 g-md-3 align-items-center position-relative">
+                <!-- Image -->
+                <div class="col-md-6">
+                  <img src="{{ sports_item.image.url }}" class="rounded-3" alt="">
+                </div>
+                <!-- Content -->
+                <div class="col-md-6">
+                  <div class="p-2 p-md-0">
+                    <h5 class="mb-1"><a href="#" class="stretched-link">{{ sports_item.title }}</a></h5>
+                    <span>Exporar ahora</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% empty %}
+            <p class="mt-3">Todavía no tenemos deportes agregados</p>
+          {% endfor %}
+
+
+        </div>
+      </div>
+    </section>
   </main>
+{% endblock %}
+
+{% block js %}
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+
+      });
+
+  </script>
 {% endblock %}
