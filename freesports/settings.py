@@ -2,16 +2,13 @@ import datetime
 import os
 from pathlib import Path
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-=f^(izn&my*%f9uy=wr6hu2dx8kf7y8uykhsn*aj@zg4_g-h--'
 
-
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -62,11 +59,16 @@ WSGI_APPLICATION = 'freesports.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'freesport_db',
+        'USER': 'dbuser',
+        'PASSWORD': '1Fr33sp0rt@DB',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -95,7 +97,6 @@ SIMPLE_JWT = {
     'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=14),
 }
-
 
 LANGUAGE_CODE = 'es'
 
