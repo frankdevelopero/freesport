@@ -1,5 +1,5 @@
 from decimal import Decimal
-
+from django.db.models import Q
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -34,9 +34,21 @@ class Booking(models.Model):
         verbose_name_plural = _("Reservas")
 
     def save(self, *args, **kwargs):
-        duration_hours = Decimal((self.end_time - self.start_time).total_seconds() / 3600)
-        price_per_hour = Decimal(self.field.price_per_hour)
-        self.price = price_per_hour * duration_hours
+        # Encuentra el FieldPriceRange que aplica para el rango de tiempo de la reserva.
+        applicable_price_range = self.field.price_ranges.filter(
+            Q(start_time__lte=self.start_time.time(), end_time__gte=self.start_time.time()) |
+            Q(start_time__lte=self.end_time.time(), end_time__gte=self.end_time.time())
+        ).first()
+
+        if applicable_price_range:
+            duration_hours = (self.end_time - self.start_time).total_seconds() / 3600
+            # Utiliza el precio del rango aplicable para calcular el precio total de la reserva
+            self.price = Decimal(duration_hours) * applicable_price_range.price
+        else:
+            # Maneja el caso en el que no se encuentre un rango de precios aplicable.
+            # Podrías establecer un precio por defecto o lanzar un error.
+            self.price = Decimal('0.00')
+
         super().save(*args, **kwargs)
 
     def __str__(self):

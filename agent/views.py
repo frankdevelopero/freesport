@@ -27,7 +27,7 @@ class AgentBookingsView(View):
             'id': field.id,
             'name': field.name,
             'description': field.description,
-            'price_per_hour': str(field.price_per_hour),
+            'price_per_hour': "50 - 70",
             'image': request.build_absolute_uri(field.image.url) if field.image else None,
             'sport': field.sport.title,
             'status': field.status

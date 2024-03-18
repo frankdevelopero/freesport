@@ -59,14 +59,14 @@ WSGI_APPLICATION = 'freesports.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'freesport_db',
-        'USER': 'dbuser',
-        'PASSWORD': '1Fr33sp0rt@DB',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': 'freesport_db',
+        #'USER': 'dbuser',
+        #'PASSWORD': '1Fr33sp0rt@DB',
+        #'HOST': '127.0.0.1',
+        #'PORT': '5432',
     }
 }
 

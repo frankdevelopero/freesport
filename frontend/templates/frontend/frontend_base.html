@@ -10,8 +10,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#57b28b">
-  <meta name="author" content="Webestica.com">
-  <meta name="description" content="Booking - Multipurpose Online Booking Theme">
+  <meta name="author" content="freesport.pe">
+  <meta name="description" content="Freesport - Reserva tus canchas sintéticas de manera fácil y online.">
 
   <!-- Dark mode -->
   <script>
@@ -106,13 +106,15 @@
   <nav class="navbar navbar-expand-xl">
     <div class="container">
       <!-- Logo START -->
-      <a class="navbar-brand" href="{% url 'index' %}">
-        <img class="light-mode-item navbar-brand-item" src="{% static 'frontend/img/logo.png' %}" alt="logo">
-        <img class="dark-mode-item navbar-brand-item" src="{% static 'frontend/img/logo.png' %}" alt="logo">
-      </a>
-      <!-- Logo END -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-white justify-content-center">
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+          <img class="light-mode-item navbar-brand-item" src="{% static 'frontend/img/freesport.png' %}" alt="logo">
+          <img class="dark-mode-item navbar-brand-item d-none" src="{% static 'frontend/img/freesport.png' %}"
+               alt="logo">
+          <h4 class="text-primary ms-2 mb-0">Freesport</h4>
+        </a>
+      </nav>
 
-      <!-- Responsive navbar toggler -->
       <button class="navbar-toggler ms-auto ms-sm-0 p-0 p-sm-2" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
               aria-label="Toggle navigation">
@@ -124,14 +126,9 @@
         <span class="d-none d-sm-inline-block small">Menu</span>
       </button>
 
-
-      <!-- Main navbar START -->
       <div class="navbar-collapse collapse" id="navbarCollapse">
         <ul class="navbar-nav navbar-nav-scroll me-auto">
-
           <li class="nav-item"><a class="nav-link" href="{% url 'search' %}">Buscar cancha</a></li>
-
-
         </ul>
       </div>
 
