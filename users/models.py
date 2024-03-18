@@ -48,7 +48,7 @@ class User(AbstractUser):
         (SELLER, 'Vendedor'),
         (ADMIN, 'Administrador')
     ]
-
+    username = None
     email = models.EmailField(unique=True, verbose_name=_("Correo electrónico"))
     photo = models.ImageField(upload_to='users/photos', default='users/placeholder.png', null=True, blank=True, verbose_name=_("Foto"))
     document_type = models.ForeignKey(DocumentType, null=True, blank=True, on_delete=models.SET_NULL, verbose_name=_("Tipo de documento"))
