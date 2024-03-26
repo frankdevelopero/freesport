@@ -266,8 +266,8 @@
             </div>
             <div class="modal-body">
               <p id="modalField">Cancha 1 futbol 5</p>
+              <p id="modalTime">Desde 12pm hasta 24pm</p>
               <div id="modalDuration">
-                <!-- Los botones de duración se generan dinámicamente -->
               </div>
             </div>
             <div class="modal-footer">
@@ -355,6 +355,11 @@
               .catch(error => console.error('Error al cargar las reservas:', error));
       }
 
+      function getFieldNameById(fieldId) {
+          const field = fieldsData.find(field => field.id === parseInt(fieldId));
+          return field ? field.name : 'Primero selecciona una cancha';
+      }
+
       function initializeCalendar() {
           calendar = new FullCalendar.Calendar(calendarEl, {
               initialView: 'timeGridWeek',
@@ -381,11 +386,25 @@
 
                   var duration = (info.end - info.start) / (1000 * 60);
                   var minutes = Math.round(duration);
+                  document.getElementById('modalField').textContent = getFieldNameById(fieldId);
+                  const startTime = new Date(info.startStr);
+                  const endTime = new Date(info.endStr);
+                  const startTimeFormatted = startTime.toLocaleTimeString('es-PE', {
+                      hour: 'numeric',
+                      minute: '2-digit',
+                      hour12: true
+                  });
 
-                  document.getElementById('modalField').textContent = "Cancha 1 futbol 5";
+                  const endTimeFormatted = endTime.toLocaleTimeString('es-PE', {
+                      hour: 'numeric',
+                      minute: '2-digit',
+                      hour12: true
+                  });
+
+                  document.getElementById('modalTime').textContent = `Desde ${startTimeFormatted} hasta ${endTimeFormatted}`;
                   var modalDuration = document.getElementById('modalDuration');
                   modalDuration.innerHTML = `
-                      <button class="btn btn-outline-primary">${minutes} min</button>
+                      <button class="btn btn-outline-secondary">${minutes} min</button>
                   `;
 
                   var continueButton = document.getElementById('continueButton');

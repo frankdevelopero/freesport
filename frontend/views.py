@@ -10,6 +10,7 @@ from agent.models import Business, Field, BusinessHour
 from booking.models import Booking
 from dashboard.models import Sport
 from locations.models import District
+from django.utils.http import urlencode
 from django.utils.dateparse import parse_datetime
 import json
 
@@ -23,7 +24,7 @@ class IndexView(View):
                      in districts]
         sports_json = [{'id': sport.id, 'name': sport.title} for sport in Sport.objects.filter(status=True)]
         sports = Sport.objects.filter(status=True)
-        business = Business.objects.filter(promotion=True)##Agregar price: rango de precio menor y mayor de fields
+        business = Business.objects.filter(promotion=True)  ##Agregar price: rango de precio menor y mayor de fields
         context = {
             'locations': locations,
             'sports': sports_json,
@@ -165,7 +166,8 @@ class BookingPaymentView(View):
         field = get_object_or_404(Field, id=field_id)
 
         context = {
-            'field': field
+            'field': field,
+            'user_authenticated': request.user.is_authenticated
         }
         return render(request, 'frontend/booking_payment.html', context)
 

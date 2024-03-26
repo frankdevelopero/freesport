@@ -12,6 +12,22 @@
         <div class="row g-4 g-lg-5">
           <div class="col-xl-8">
             <div class="vstack gap-5">
+
+              {% if not user_authenticated %}
+                <div class="bg-primary bg-opacity-10 rounded-3 p-3">
+                  <div class="d-md-flex justify-content-md-between align-items-center">
+                    <div class="d-sm-flex align-items-center mb-2 mb-md-0">
+                      <img src="{% static 'frontend/img/login.png' %}" class="h-50px" alt="">
+                      <div class="ms-sm-3 mt-2 mt-sm-0">
+                        <h5 class="mb-0">Inicia sesión o regístrate</h5>
+                        <p class="mb-0">Ingresa a tu cuenta para continuar con la reserva y obtén más beneficios.</p>
+                      </div>
+                    </div>
+                    <a href="{% url 'login' %}" class="btn btn-primary mb-0">Ingresar</a>
+                  </div>
+                </div>
+              {% endif %}
+
               <div class="card shadow">
                 <div class="card-header border-bottom p-4">
                   <h4 class="card-title mb-0">Realiza el pago</h4>
@@ -23,18 +39,19 @@
                         <button class="accordion-button rounded collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
                           <i class="bi bi-phone text-primary me-2"></i> <span
-                            class="me-5">Pagar con Yape</span>
+                            class="me-5">Pagar con Yape o PLIN</span>
                         </button>
                       </h6>
                       <div id="collapse-1" class="accordion-collapse collapse show" aria-labelledby="heading-1"
                            data-bs-parent="#accordioncircle">
                         <div class="accordion-body">
                           <p class="mt-3">
-                            pagar con Yape, escanea el código QR o envía tu pago al número 918387410.</p>
-                          <img src="{% static 'dashboard/images/gallery/yapeqr.webp' %}" alt="Código QR Yape"
-                               style="max-width: 100px;">
+                            Realiza el pago con tu Yape o Plin, escanea el código QR o envía tu pago al número <b>931399302</b>.
+                          </p>
+
                           <div class="alert alert-info">
-                            Una vez hecho he pago con Yape por favor ingresa el número de celular con el que ha pagodo y
+                            Una vez hecho he pago con Yape/Plin por favor ingresa el número de celular con el que ha
+                            pagado y
                             adjunta el comprobante de pago.
                           </div>
                           <form class="row g-3" method="post" enctype="multipart/form-data">
@@ -43,7 +60,7 @@
                               <label class="form-label"><span class="h6 fw-normal">Número de celular</span></label>
                               <div class="position-relative">
                                 <input type="text" class="form-control" maxlength="14"
-                                       placeholder="Ingresa el número de celular" name="phone">
+                                       placeholder="Ingresa el número de celular" name="phone" required>
                                 <input type="hidden" name="payment_method" value="1">
                                 <input type="hidden" name="start_time">
                                 <input type="hidden" name="end_time">
@@ -52,7 +69,8 @@
                             </div>
                             <div class="col-md-6">
                               <label class="form-label"><span class="h6 fw-normal">Subir comprobante</span></label>
-                              <input type="file" class="form-control" maxlength="3" placeholder="xxx" name="voucher">
+                              <input type="file" class="form-control" maxlength="3" placeholder="xxx" name="voucher"
+                                     required>
                             </div>
                             <div class="col-12">
                               <div class="d-sm-flex justify-content-sm-between align-items-center">
@@ -65,53 +83,14 @@
                         </div>
                       </div>
                     </div>
-                    <div class="accordion-item mb-3">
-                      <h6 class="accordion-header" id="heading-3">
-                        <button class="accordion-button collapsed rounded" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
-                          <i class="bi bi-phone text-primary me-2"></i><span class="me-5">Pagar con Plin</span>
-                        </button>
-                      </h6>
-                      <div id="collapse-3" class="accordion-collapse collapse" aria-labelledby="heading-3"
-                           data-bs-parent="#accordioncircle">
-                        <!-- Accordion body -->
-                        <div class="accordion-body">
-                          <p class="mt-3">
-                            pagar con Yape, escanea el código QR o envía tu pago al número 918387410.</p>
-                          <img src="{% static 'dashboard/images/gallery/yapeqr.webp' %}" alt="Código QR Yape"
-                               style="max-width: 100px;">
-                          <div class="alert alert-info">
-                            Una vez hecho he pago con Plin por favor ingresa el número de celular con el que ha pagodo y
-                            adjunta el comprobante de pago.
-                          </div>
-                          <form class="row g-3">
-                            <div class="col-6">
-                              <label class="form-label"><span class="h6 fw-normal">Número de celular</span></label>
-                              <div class="position-relative">
-                                <input type="text" class="form-control" maxlength="14"
-                                       placeholder="Ingresa el número de celular">
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <label class="form-label"><span class="h6 fw-normal">Subir comprobante</span></label>
-                              <input type="file" class="form-control" maxlength="3" placeholder="xxx">
-                            </div>
-                            <div class="col-12">
-                              <div class="d-sm-flex justify-content-sm-between align-items-center">
-                                <h4 class="totalAPagarYape" id="totalAPagarPlin">
-                                </h4>
-                                <button class="btn btn-primary mb-0">Pagar ahora</button>
-                              </div>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div class="card-footer p-4 pt-0">
-                  <p class="mb-0">Al realizar el pago estás aceptando nuestros <a href="https://drive.google.com/file/d/1GRplYJ4XGZgrq83DjfEvzGP1YR1R8juB/view?usp=sharing" target="_blank">Términos y condiciones</a>,
-                    también <a href="https://drive.google.com/file/d/1ec3lBQrv99d40_T6KPa4dPb_Di2C-PpU/view?usp=sharing" target="_blank">Política de privacidad.</a>
+                  <p class="mb-0">Al realizar el pago estás aceptando nuestros <a
+                      href="https://drive.google.com/file/d/1GRplYJ4XGZgrq83DjfEvzGP1YR1R8juB/view?usp=sharing"
+                      target="_blank">Términos y condiciones</a>,
+                    también <a href="https://drive.google.com/file/d/1ec3lBQrv99d40_T6KPa4dPb_Di2C-PpU/view?usp=sharing"
+                               target="_blank">Política de privacidad.</a>
                   </p>
                 </div>
               </div>
@@ -187,7 +166,19 @@
 {% block js %}
   <script>
       document.addEventListener('DOMContentLoaded', function () {
-          // Recuperar los valores desde localStorage
+
+          let user_authenticated = {{ user_authenticated|lower }};
+
+          const form = document.querySelector('form');
+
+          form.addEventListener('submit', function (event) {
+              if (!user_authenticated) {
+                  event.preventDefault();
+                  alert('Por favor, inicia sesión o regístrate para continuar con la reserva.');
+              }
+          });
+
+
           const startTime = localStorage.getItem('startTime');
           const endTime = localStorage.getItem('endTime');
           const startDate = new Date(startTime);
@@ -205,50 +196,7 @@
           document.querySelector('input[name="start_time"]').value = startTime;
           document.querySelector('input[name="end_time"]').value = endTime;
 
-          fetchBookingData()
-
       });
-
-
-      function fetchBookingData() {
-          const startTime = localStorage.getItem('startTime');
-          const endTime = localStorage.getItem('endTime');
-          const fieldId = localStorage.getItem('fieldId');
-
-          if (!startTime || !endTime) {
-              alert("Por favor, completa todos los campos para continuar.");
-              return;
-          }
-
-          fetch('/api/data-booking/', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                  fieldId: fieldId,
-                  startTime: startTime,
-                  endTime: endTime
-              })
-          }).then(response => {
-              if (!response.ok) {
-                  throw new Error('Respuesta de red no fue ok');
-              }
-              return response.json();
-          },).then(data => {
-              const priceToPay = parseFloat(data.priceToPay);
-              const commission = parseFloat(data.commission);
-              const totalToPay = parseFloat(data.totalToPay);
-
-              document.getElementById('precioAPagar').textContent = `S/ ${priceToPay.toFixed(2)}`;
-              document.getElementById('comisiones').textContent = `S/ ${commission.toFixed(2)}`;
-              document.getElementById('totalAPagar').textContent = `S/ ${totalToPay.toFixed(2)}`;
-          },)
-              .catch(error => {
-                  console.error('Error al crear la reserva:', error);
-                  alert("Ocurrió un error al crear la reserva.");
-              },);
-      }
 
   </script>
 {% endblock %}

@@ -14,15 +14,15 @@ def _redirect_url(user):
     if user.role == 1:
         return 'user-account'
     elif user.role == 2:
-        return 'agent_dashboard'
+        return 'agent_bookings'
     else:
-        return 'dashboard'
+        return 'user-account'
 
 
 class SignInView(View):
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect('dashboard')
+            return redirect(_redirect_url(request.user))
         form = LoginForm()
         context = {
             'form': form
@@ -31,7 +31,7 @@ class SignInView(View):
 
     def post(self, request):
         if request.user.is_authenticated:
-            return redirect('dashboard')
+            return redirect(_redirect_url(request.user))
         form = LoginForm(request.POST)
         if not form.is_valid():
             context = {
