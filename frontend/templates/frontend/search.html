@@ -117,52 +117,72 @@
 
 {% block js %}
   <script src="{% static 'frontend/search_vue.js' %}"></script>
-
   <script>
       var detailUrlBase = "{% url 'detail' id=0 %}";
   </script>
 
-
   <script>
-
-
-      var locationsData = {{ locations_json|safe }};
-      var sportsData = {{ sports_json|safe }};
-
+      // Función para obtener el valor de un parámetro específico de la URL
+      function getQueryParam(param) {
+          var searchParams = new URLSearchParams(window.location.search);
+          return searchParams.get(param);
+      }
 
       document.addEventListener('DOMContentLoaded', function () {
-          var currentDate = new Date();
-          currentDate.setHours(currentDate.getHours() + 1);
-          currentDate.setMinutes(currentDate.getMinutes() < 30 ? 0 : 30);
-          currentDate.setSeconds(0);
+          // Suponiendo que `locationsData` y `sportsData` están definidos en el contexto de la plantilla de Django
+          var locationsData = {{ locations_json|safe }};
+          var sportsData = {{ sports_json|safe }};
 
+          // Función para obtener el valor de un parámetro específico de la URL
+          function getQueryParam(param) {
+              var searchParams = new URLSearchParams(window.location.search);
+              return searchParams.get(param);
+          }
 
+          // Obtiene los valores de los parámetros de la URL
+          const districtValue = getQueryParam('district');
+          const sportValue = getQueryParam('sport');
+          const dateValue = getQueryParam('date');
+          const timeValue = getQueryParam('time') ? getQueryParam('time').replace('%3A', ':') : null; // Corrige el formato de la hora
 
-
-          const citySelect = document.querySelector('[name="city"]');
-          const sportSelect = document.querySelector('[name="sport"]');
-          const cityChoices = new Choices(citySelect, {searchEnabled: true, itemSelectText: ''});
+          root_vue.selectedCity = districtValue
+          const citySelectElement = document.querySelector('[name="city"]');
+          const cityChoices = new Choices(citySelectElement, {searchEnabled: true, itemSelectText: ''});
           cityChoices.setChoices(locationsData.map(location => ({
               value: location.id,
-              label: location.name
+              label: location.name,
+              selected: location.id.toString() === districtValue // Marca como seleccionado si coincide
           })), 'value', 'label', false);
-          const sportChoices = new Choices(sportSelect, {searchEnabled: true, itemSelectText: ''});
+
+          root_vue.selectedSport = sportValue
+          const sportSelectElement = document.querySelector('[name="sport"]');
+          const sportChoices = new Choices(sportSelectElement, {searchEnabled: true, itemSelectText: ''});
           sportChoices.setChoices(sportsData.map(sport => ({
               value: sport.id,
-              label: sport.name
+              label: sport.name,
+              selected: sport.id.toString() === sportValue
           })), 'value', 'label', false);
-          flatpickr(".flatpickr.fecha", {dateFormat: "Y-m-d"});
-          flatpickr(".flatpickr.hora", {
+
+          root_vue.selectedDate = dateValue
+          var datePicker = flatpickr(".flatpickr.fecha", {
+              dateFormat: "Y-m-d",
+              defaultDate: dateValue || null
+          });
+
+          root_vue.selectedTime = timeValue
+          var timePicker = flatpickr(".flatpickr.hora", {
               enableTime: true,
               noCalendar: true,
               dateFormat: "H:i",
               minuteIncrement: 30,
               time_24hr: true,
-              defaultDate: currentDate
+              defaultDate: timeValue || null
           });
+
+          if (root_vue.selectedDate !== null && root_vue.selectedTime !== null && root_vue.selectedCity !== null && root_vue.selectedSport !== null) {
+              root_vue.search()
+          }
       });
 
-
   </script>
-
-{% endblock %}>
+{% endblock %}

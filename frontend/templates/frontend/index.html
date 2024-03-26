@@ -65,16 +65,15 @@
                       <!-- Input field -->
                       <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
                         <input type="text" class="form-control flatpickr fecha py-2" data-date-format="d M Y"
-                               placeholder="Selecciona una fecha" name="date" required>
+                               placeholder="Selecciona una fecha" name="date" id="inputFecha" required>
                       </div>
                     </div>
 
                     <div class="col-md-6 col-lg-2">
                       <label class="h6 fw-normal mb-0"><i class="bi bi-clock text-primary me-1"></i>Hora</label>
                       <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
-                        <input type="text" class="form-control flatpickr hora" required
-                               data-enableTime="true" data-noCalendar="true" placeholder="Hora" name="time"
-                               v-model="selectedTime">
+                        <input type="text" class="form-control flatpickr hora" required id="inputHora"
+                               data-enableTime="true" data-noCalendar="true" placeholder="Hora" name="time">
                       </div>
                     </div>
 
@@ -107,19 +106,44 @@
 
         <div class="row g-4">
           {% for item in business %}
-            <div class="col-sm-6 col-xl-3">
-              <!-- Card START -->
-              <div class="card card-img-scale overflow-hidden bg-transparent">
-                <div class="card-img-scale-wrapper rounded-3">
-                  <img src="{{ item.image.url }}" class="card-img" alt="">
+
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+              <div class="card shadow h-100">
+                <div class="position-relative">
+                  <!-- Image -->
+                  <img src="{{ item.image.url }}" class="card-img-top" alt="Card image">
+                  <!-- Overlay -->
+                  <div class="card-img-overlay p-3 z-index-1">
+                    <div class="badge text-bg-success">Popular</div>
+                  </div>
                 </div>
-                <div class="card-body px-2">
-                  <h5 class="card-title">
-                    <a href="{% url 'detail' item.id %}" class="stretched-link">{{ item.title }}</a>
-                  </h5>
+
+                <!-- Card body START -->
+                <div class="card-body">
+                  <!-- Title -->
+                  <h5 class="card-title me-2"><a href="{% url 'detail' item.id %}">{{ item.title }}</a></h5>
+
+                  <!-- Address and Contact -->
+                  <ul class="list-group list-group-borderless mb-0">
+                    <li class="list-group-item small pb-0">
+                      <i class="bi bi-pin-fill fa-fw h6 small mb-0"></i> {{ item.address }}
+                    </li>
+                  </ul>
+                </div>
+                <!-- Card body END -->
+
+                <!-- Card footer START-->
+                <div class="card-footer border-top">
+                  <!-- Buttons -->
+                  <div class="d-flex justify-content-between align-items-center">
+                    <a href="{% url 'detail' item.id %}" class="btn btn-link p-0 mb-0">Reservar<i
+                        class="bi bi-arrow-right ms-1"></i></a>
+                    <a href="#" class="h6 mb-0 z-index-2"><i class="fa-regular fa-heart"></i></a>
+                  </div>
                 </div>
               </div>
             </div>
+
           {% empty %}
             <p class="mt-3">Todavía no tenemos canchas agregados</p>
           {% endfor %}
@@ -241,7 +265,7 @@
             <div class="col-lg-8">
               <!-- Title -->
               <div class="d-flex">
-                <h3>Gestiona tu cancha con Freesport</h3>
+                <h3> ¿Interesado de gestionar tu canchas con FreeSport?</h3>
               </div>
               <p class="mb-3 mb-lg-0">Únete a Freesport para obtener más reservas en tu cancha deportiva. Además con un
                 panel online podrás gestionar tu negocio.</p>
@@ -271,8 +295,8 @@
           currentDate.setHours(currentDate.getHours() + 1);
           currentDate.setMinutes(currentDate.getMinutes() < 30 ? 0 : 30);
           currentDate.setSeconds(0);
-          flatpickr(".flatpickr.fecha", {dateFormat: "Y-m-d"});
-          flatpickr(".flatpickr.hora", {
+          flatpickr("#inputFecha", {dateFormat: "Y-m-d"});
+          flatpickr("#inputHora", {
               enableTime: true,
               noCalendar: true,
               dateFormat: "H:i",
