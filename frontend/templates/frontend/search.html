@@ -67,12 +67,6 @@
                 <h1 class="fs-3 mb-2">[[ totalResults ]] lugares disponibles</h1>
               </div>
 
-              <button class="btn btn-primary-soft btn-primary-check d-xl-none mb-0" type="button"
-                      data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
-                <i class="fa-solid fa-sliders-h me-1"></i> Mostrar filtros
-              </button>
-
-
             </div>
           </div>
         </div>
@@ -142,14 +136,7 @@
           currentDate.setMinutes(currentDate.getMinutes() < 30 ? 0 : 30);
           currentDate.setSeconds(0);
 
-          flatpickr(".flatpickr.hora", {
-              enableTime: true,
-              noCalendar: true,
-              dateFormat: "H:i",
-              minuteIncrement: 30,
-              time_24hr: true,
-              defaultDate: currentDate
-          });
+
 
 
           const citySelect = document.querySelector('[name="city"]');
@@ -165,7 +152,14 @@
               label: sport.name
           })), 'value', 'label', false);
           flatpickr(".flatpickr.fecha", {dateFormat: "Y-m-d"});
-          flatpickr(".flatpickr.hora", {enableTime: true, noCalendar: true, dateFormat: "H:i"});
+          flatpickr(".flatpickr.hora", {
+              enableTime: true,
+              noCalendar: true,
+              dateFormat: "H:i",
+              minuteIncrement: 30,
+              time_24hr: true,
+              defaultDate: currentDate
+          });
       });
 
 

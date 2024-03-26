@@ -44,12 +44,11 @@
                     </div>
 
 
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-3">
                       <label class="h6 fw-normal mb-0">
                         <i class="fa-solid fa-soccer-ball text-primary me-1"></i>
                         Deporte
                       </label>
-                      <!-- Input field -->
                       <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
                         <select class="form-select js-choice" data-search-enabled="true" name="sport">
                           <option value="">Selecciona</option>
@@ -61,13 +60,21 @@
                       </div>
                     </div>
 
-                    <div class="col-md-6 col-lg-4">
-                      <label class="h6 fw-normal mb-0"><i class="bi bi-calendar text-primary me-1"></i>Fecha y
-                        hora</label>
+                    <div class="col-md-6 col-lg-3">
+                      <label class="h6 fw-normal mb-0"><i class="bi bi-calendar text-primary me-1"></i>Fecha</label>
                       <!-- Input field -->
                       <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
-                        <input type="text" class="form-control flatpickr py-2" data-date-format="d M Y"
-                               placeholder="Selecciona una fecha" name="date">
+                        <input type="text" class="form-control flatpickr fecha py-2" data-date-format="d M Y"
+                               placeholder="Selecciona una fecha" name="date" required>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-2">
+                      <label class="h6 fw-normal mb-0"><i class="bi bi-clock text-primary me-1"></i>Hora</label>
+                      <div class="form-border-bottom form-control-transparent form-fs-lg mt-2">
+                        <input type="text" class="form-control flatpickr hora" required
+                               data-enableTime="true" data-noCalendar="true" placeholder="Hora" name="time"
+                               v-model="selectedTime">
                       </div>
                     </div>
 
@@ -241,7 +248,8 @@
             </div>
             <!-- Content and input -->
             <div class="col-lg-4 text-lg-end">
-              <a href="wa.link/5nb0lo" target="_blank" class="btn btn-lg btn-primary mb-0"><i class="bi bi-whatsapp"></i> Escríbenos</a>
+              <a href="wa.link/5nb0lo" target="_blank" class="btn btn-lg btn-primary mb-0"><i
+                  class="bi bi-whatsapp"></i> Escríbenos</a>
             </div>
           </div> <!-- Row END -->
         </div>
@@ -253,10 +261,25 @@
 {% endblock %}
 
 {% block js %}
+
+  <script src="{% static 'frontend/search_vue.js' %}"></script>
   <script>
+
+
       document.addEventListener('DOMContentLoaded', function () {
-
+          var currentDate = new Date();
+          currentDate.setHours(currentDate.getHours() + 1);
+          currentDate.setMinutes(currentDate.getMinutes() < 30 ? 0 : 30);
+          currentDate.setSeconds(0);
+          flatpickr(".flatpickr.fecha", {dateFormat: "Y-m-d"});
+          flatpickr(".flatpickr.hora", {
+              enableTime: true,
+              noCalendar: true,
+              dateFormat: "H:i",
+              minuteIncrement: 30,
+              time_24hr: true,
+              defaultDate: currentDate
+          });
       });
-
   </script>
 {% endblock %}

@@ -115,22 +115,6 @@
         </a>
       </nav>
 
-      <button class="navbar-toggler ms-auto ms-sm-0 p-0 p-sm-2" type="button" data-bs-toggle="collapse"
-              data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-              aria-label="Toggle navigation">
-				<span class="navbar-toggler-animation">
-					<span></span>
-					<span></span>
-					<span></span>
-				</span>
-        <span class="d-none d-sm-inline-block small">Menu</span>
-      </button>
-
-      <div class="navbar-collapse collapse" id="navbarCollapse">
-        <ul class="navbar-nav navbar-nav-scroll me-auto">
-          <li class="nav-item"><a class="nav-link" href="{% url 'search' %}">Buscar cancha</a></li>
-        </ul>
-      </div>
 
       {% if not request.user.is_authenticated %}
         <div class="navbar-collapse collapse" id="navbarCategoryCollapse">
